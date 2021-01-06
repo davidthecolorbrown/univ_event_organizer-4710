@@ -1,26 +1,34 @@
+//
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
+//
 const Create = () => {
+  //
   const [title, setTitle] = useState('');
-  const [body, setBody] = useState('');
-  const [author, setAuthor] = useState('mario');
+  const [note, setNote] = useState('');
+  const [type, setType] = useState('random');
   const history = useHistory();
 
+  //
   const handleSubmit = (e) => {
     e.preventDefault();
-    const blog = { title, body, author };
 
+    //
+    const blog = { title, note, type };
+
+    //
     fetch('http://localhost:3002/api/note', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(blog)
     }).then(() => {
-      // history.go(-1);
+      //
       history.push('/');
     })
   }
 
+  // 
   return (
     <div className="create">
       <h2>Add a New Blog</h2>
@@ -35,21 +43,32 @@ const Create = () => {
         <label>Blog body:</label>
         <textarea
           required
-          value={body}
-          onChange={(e) => setBody(e.target.value)}
+          value={note}
+          onChange={(e) => setNote(e.target.value)}
         ></textarea>
-        <label>Blog author:</label>
+        <label>Blog type:</label>
         <select
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
+          value={type}
+          onChange={(e) => setType(e.target.value)}
         >
-          <option value="mario">mario</option>
-          <option value="yoshi">yoshi</option>
+          <option value="daily note">daily note</option>
+          <option value="review-week">review (weekly)</option>
+          <option value="review-month">review (monthly)</option>
+          <option value="review-biannual">review (biannually)</option>
+          <option value="review-year">review (yearly)</option>
+          <option value="reference">reference</option>
+          <option value="humor">humor</option>
+          <option value="school">school</option>
+          <option value="career">career</option>
+          <option value="random">random</option>
+          <option value="idea">idea</option>
+          <option value="quote">quote</option>
         </select>
         <button>Add Blog</button>
       </form>
     </div>
   );
 }
- 
+
+// 
 export default Create;

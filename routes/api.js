@@ -46,6 +46,8 @@ router.get('/note/date_range', function(req, res) {
 
 // API endpoint - GET a note by _id
 router.get('/note/:id', function(req, res) {
+    console.log("REQ.PARAMS.ID: " + req.params.id);
+    
     // find user document by id and update with request body
     //Note.findOneAndUpdate({ _id: req.params.id }, req.body).then(function() {
     
@@ -56,6 +58,8 @@ router.get('/note/:id', function(req, res) {
     });
     //});
 });
+
+
 
 // API endpoint - post new note
 router.post('/note', function(req, res, next) {
