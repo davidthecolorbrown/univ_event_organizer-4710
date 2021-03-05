@@ -11,8 +11,7 @@ const app = express();
 
 // set port and mongoDB url (local or global)
 const PORT = 3002;
-//const MONGODB_URI = "mongodb+srv://asst:!personal_asst123!@cluster0.ucmv7.mongodb.net/test?retryWrites=true&w=majority";
-const MONGODB_URI = "mongodb+srv://admin:<admin>@cluster0.7yj86.mongodb.net/univ_events?retryWrites=true&w=majority";
+const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/univ_events?retryWrites=true&w=majority";
 
 // ES6 Promises  -- set global Promise ES6 object equal to Promise
 // gets rid of DepreciatedWarning for Promises when running test
