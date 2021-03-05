@@ -19,8 +19,8 @@ const BlogList = ({blogs, keyword}) => {
       return blog.type.toLowerCase().includes(input.toLowerCase())
     })
       
-    console.log("input: " + input);
-    console.log("filteredByType: " + filteredByType);
+    //console.log("input: " + input);
+    //console.log("filteredByType: " + filteredByType);
     
     //
     setInput(input);

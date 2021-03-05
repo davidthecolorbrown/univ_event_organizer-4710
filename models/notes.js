@@ -7,27 +7,13 @@ const Schema = mongoose.Schema;
 const NoteSchema = new Schema({
     date: {
         type: Date,
-        //required: true,
         default: Date.now
     },
-    // category: {
-    //     // project, review, daily, school, random, idea
-    //     type: String,
-    //     default: "random"
-    // },
-    context: {
-        // personal, professional, ..., other roles?
-        type: String,
-        default: "NaN"
-    },
     type: {
-        // personal: project, review-week/month/biannual/year, daily, random, idea
-        // professional: project, job, school, random, idea
         type: String,
         default: "random"
     },
     title: {
-        // project title, review, daily note, random
         type: String,
         default: "No title"
     },
@@ -37,7 +23,6 @@ const NoteSchema = new Schema({
     },
     created_at: {
         type: Date,
-        //required: true,
         default: Date.now
     }
 });
@@ -46,7 +31,6 @@ const NoteSchema = new Schema({
 //const Users = mongoose.model('Users', UsersSchema);
 
 // export so you can use in app
-//module.exports = Users;
 module.exports = mongoose.model('Note', NoteSchema);
 
 // ... 

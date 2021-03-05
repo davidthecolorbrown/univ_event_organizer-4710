@@ -51,20 +51,15 @@ const Create = () => {
           value={type}
           onChange={(e) => setType(e.target.value)}
         >
-          <option value="daily note">daily note</option>
-          <option value="review-week">review (weekly)</option>
-          <option value="review-month">review (monthly)</option>
-          <option value="review-biannual">review (biannually)</option>
-          <option value="review-year">review (yearly)</option>
           <option value="reference">reference</option>
-          <option value="humor">humor</option>
+          <option value="job">job</option>
           <option value="school">school</option>
           <option value="career">career</option>
           <option value="random">random</option>
           <option value="idea">idea</option>
           <option value="quote">quote</option>
         </select>
-        <button>Add Blog</button>
+        <button>Add Note</button>
       </form>
     </div>
   );
