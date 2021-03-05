@@ -39,6 +39,10 @@
     # create .env variable to hold frontend port info (using 8000)
     echo "PORT=8000" > ".env"
     ```
+* move out of frontend directory (back to main project directory)
+    ```bash
+    cd ..
+    ```
 ## create dev branch (if not done so already) for development
 * create a new 'dev' branch and push the new branch (locally) to remote github repo
     ```bash
@@ -48,4 +52,20 @@
     git push origin dev
     # switch to branch
     git checkout dev
+    ```
+## start the backend for reading database 
+* start backend by navigating to main project directory
+    ```bash
+    # use nodemon to restart server on changes to code
+    nodemon
+    # (optional) can use package manager if nodemon isn't installed
+    npm start
+    ```
+## start frontend locally and load in browser
+* browser will automatically load at 'http://localhost:[frontend-PORT]'
+    ```bash
+    # navigate to frontend directory 
+    cd ./frontend/
+    # use package manager to load in browser
+    npm start
     ```
