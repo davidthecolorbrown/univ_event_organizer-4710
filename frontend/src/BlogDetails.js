@@ -9,7 +9,8 @@ const BlogDetails = () => {
   console.log("id: " + id);
 
   //
-  const { data: blog, error, isPending } = useFetch('http://localhost:3002/api/note/' + id);
+  const { data: blog, error, isPending } = useFetch('http://localhost:3002/api/event/' + id);
+  //const { data: blog, error, isPending } = useFetch('http://localhost:3002/api/note/' + id);
   
   //
   const history = useHistory();
@@ -26,7 +27,8 @@ const BlogDetails = () => {
 
     // only delete if user confirms they want to delete todo
     if (deleteNote === true) {
-      fetch('http://localhost:3002/api/note/' + blog._id, {
+      //fetch('http://localhost:3002/api/note/' + blog._id, {
+      fetch('http://localhost:3002/api/event/' + blog._id, {
         method: 'DELETE'
       }).then(() => {
         history.push('/');
@@ -39,7 +41,8 @@ const BlogDetails = () => {
     console.log("handle update running!");
     console.log('/note/update/' + blog._id);
 
-    fetch('http://localhost:3002/api/note/' + blog._id, {
+    //fetch('http://localhost:3002/api/note/' + blog._id, {
+    fetch('http://localhost:3002/api/event/' + blog._id, {
       method: 'PUT',
       headers: { 
         "Accept": "application/json",

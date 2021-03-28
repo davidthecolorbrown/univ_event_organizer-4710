@@ -47,8 +47,11 @@ const BlogList = ({blogs, keyword}) => {
           <Link to={`/note/${blog._id}`}>
             <h2>{ blog.title }</h2>
             <p>Date: { blog.date }</p>
+            <p>Location: { blog.location }</p>
             <p>Type: { blog.type }</p>
-            <p>Note: { blog.note }</p>
+            <p>Description: { blog.description }</p>
+            <p>RSO: { blog.isRSO }</p>
+            <p>Event ID: { blog.event_id }</p>
           </Link>
         </div>
       ))}
