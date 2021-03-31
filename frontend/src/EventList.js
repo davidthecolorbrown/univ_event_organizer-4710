@@ -27,15 +27,37 @@ const EventList = ({events, keyword}) => {
     const monthAbbrs = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
     // Split into the date and time.
-    var dateTime = mongoDate.split("T");
+    const dateTime = mongoDate.split("T");
 
     // Split the date into year, month, and day.
-    var dateParts = dateTime[0].split("-");
+    const dateParts = dateTime[0].split("-");
 
     // Parse the month and day and make a string of them.
-    return monthAbbrs[parseInt(dateParts[1]) - 1] + " " + parseInt(dateParts[2]);
+    const date = monthAbbrs[parseInt(dateParts[1]) - 1] + " " + parseInt(dateParts[2]);
 
     //2021-03-31T01:01:04.789Z
+
+    // Split the time into hours, minutes, and seconds.
+    const timeParts = dateTime[1].split(":");
+
+    // Parse the hour and adjust for current UTC offset.
+    const utcOffset = new Date().getTimezoneOffset();
+    const hour = parseInt(timeParts[0]) + (utcOffset / 60);
+
+    // Parse the minutes.
+    const minutes = parseInt(timeParts[1]);
+
+    // Create the time string, combine with the date, and return.
+    if(hour < 12)
+    {
+      const time = hour + ": " + minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + " AM";
+      return date + "," + time;
+    }
+    else
+    {
+      const time = (hour - 12) + ": " + minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + " PM";
+      return date + "," + time;
+    }
   }
 
   // set the css styling for search bar
