@@ -1,27 +1,44 @@
-//
 import { useState } from "react";
 import { useHistory } from "react-router-dom";
 
-//
+// Create - A page that allows the creation of new events.
 const Create = () => {
-  //
-  const [title, setTitle] = useState('');
-  const [note, setNote] = useState('');
+  // Define the fields.
+  // {event_id, location, event_name, description, isRSO, isPrivate, type, title, note, _id, time, date, created_at}
+  const [location, setLocation] = useState('');
+  const [name, setName] = useState('');
+  const [description, setDesc] = useState('');
+  const [time, setTime] = useState('');
   const [type, setType] = useState('random');
   const history = useHistory();
 
-  //
+  // Add a new event to the database.
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    //
-    const blog = { title, note, type };
+    // Set ID? (IDK what it is...)
+    const _id = 0;
 
-    //
+    // Set isRSO and isPrivate based on type value.
+    const isRSO = (type == 1);
+    const isPrivate = (type == 2);
+
+    // Set the transitional values.
+    const note = description;
+    const title = name;
+    const date = time;
+
+    // Set created_at to the current time.
+    const created_at = new Date();
+
+    // Define the event.
+    const event = {location, name, description, isRSO, isPrivate, type, title, note, _id, time, date, created_at};
+
+    // Post the event as a JSON string.
     fetch('http://localhost:3002/api/note', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(blog)
+      body: JSON.stringify(event)
     }).then(() => {
       //
       history.push('/');
@@ -31,22 +48,22 @@ const Create = () => {
   // 
   return (
     <div className="create">
-      <h2>Add a New Blog</h2>
+      <h2>Create a New Event</h2>
       <form onSubmit={handleSubmit}>
-        <label>Blog title:</label>
+        <label>Event name:</label>
         <input 
           type="text" 
           required 
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
-        <label>Blog body:</label>
+        <label>Description:</label>
         <textarea
           required
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
+          value={description}
+          onChange={(e) => setDesc(e.target.value)}
         ></textarea>
-        <label>Blog type:</label>
+        <label>Type:</label>
         <select
           value={type}
           onChange={(e) => setType(e.target.value)}
@@ -65,5 +82,4 @@ const Create = () => {
   );
 }
 
-// 
 export default Create;

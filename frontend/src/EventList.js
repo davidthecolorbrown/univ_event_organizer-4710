@@ -1,6 +1,3 @@
-//
-
-//
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 
@@ -50,13 +47,13 @@ const EventList = ({events, keyword}) => {
     // Create the time string, combine with the date, and return.
     if(hour < 12)
     {
-      const time = hour + ": " + minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + " AM";
-      return date + "," + time;
+      const time = hour + ":" + minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + " AM";
+      return date + ", " + time;
     }
     else
     {
-      const time = (hour - 12) + ": " + minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + " PM";
-      return date + "," + time;
+      const time = (hour - 12) + ":" + minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + " PM";
+      return date + ", " + time;
     }
   }
 
