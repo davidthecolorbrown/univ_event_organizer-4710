@@ -8,7 +8,7 @@ const Create = () => {
   const [name, setName] = useState('');
   const [description, setDesc] = useState('');
   const [time, setTime] = useState(0);
-  const [type, setType] = useState('public');
+  const [type, setType] = useState('Public');
   const history = useHistory();
 
   const [month, setMonth] = useState(1);
@@ -16,9 +16,9 @@ const Create = () => {
   const [year, setYear] = useState(2021);
 
   // Type constants.
-  const publicType = 0;
-  const privateType = 1;
-  const rsoType = 2;
+  const publicType = "Public";
+  const privateType = "Private";
+  const rsoType = "RSO";
 
   // Valid maximum date per month.
   const monthMax = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
@@ -117,6 +117,7 @@ const Create = () => {
           defaultValue="2021"
           min="1"
         />
+        <label>Time:</label>
         <label>Description:</label>
         <textarea
           required
@@ -136,7 +137,7 @@ const Create = () => {
           <input type="radio" value="private" checked={type === 1} onChange={(e) => setType(privateType)} /> Students only
           <input type="radio" value="rso" checked={type === 2} onChange={(e) => setType(rsoType)} /> RSO members only
         </div>
-        <button>Add Note</button>
+        <button>Submit Event</button>
       </form>
     </div>
   );
