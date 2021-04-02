@@ -11,10 +11,17 @@ const Create = () => {
   const [type, setType] = useState('public');
   const history = useHistory();
 
+  const [month, setMonth] = useState(1);
+  const [day, setDay] = useState(1);
+  const [year, setYear] = useState(2021);
+
   // Type constants.
   const publicType = 0;
   const privateType = 1;
   const rsoType = 2;
+
+  // Valid maximum date per month.
+  const monthMax = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
   // Add a new event to the database.
   const handleSubmit = (e) => {
@@ -46,6 +53,26 @@ const Create = () => {
     })
   }
 
+  // calcMaxDay - Calculate the maximum day value allowed.
+  const calcMaxDay = () =>
+  {
+    // Check leap year conditions if February.
+    if(month === 2)
+    {
+      
+      if (year % 4 !== 0)
+        return 28;
+      else if (year % 100 !== 0)
+        return 29;
+      else if (year % 400 !== 0)
+        return 28;
+      else
+        return 29;
+    }
+    else
+      return monthMax[month - 1];
+  }
+
   // Return the page.
   return (
     <div className="create">
@@ -57,6 +84,38 @@ const Create = () => {
           required 
           value={name}
           onChange={(e) => setName(e.target.value)}
+        />
+        <label>Date:</label>
+        <select
+          value={month}
+          onChange={(e) => setMonth(parseInt(e.target.value))}
+        >
+          <option value="1">Jan</option>
+          <option value="2">Feb</option>
+          <option value="3">Mar</option>
+          <option value="4">Apr</option>
+          <option value="5">May</option>
+          <option value="6">Jun</option>
+          <option value="7">Jul</option>
+          <option value="8">Aug</option>
+          <option value="9">Sept</option>
+          <option value="10">Oct</option>
+          <option value="11">Nov</option>
+          <option value="12">Dec</option>
+        </select>
+        <input
+          value={day}
+          onChange={(e) => setDay(e.target.value)}
+          type="number"
+          min="1"
+          max={calcMaxDay()}
+        />
+        <input
+          value={year}
+          onChange={(e) => setYear(e.target.value)}
+          type="number"
+          defaultValue="2021"
+          min="1"
         />
         <label>Description:</label>
         <textarea
