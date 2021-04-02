@@ -15,6 +15,10 @@ const Create = () => {
   const [day, setDay] = useState(1);
   const [year, setYear] = useState(2021);
 
+  const [hour, setHour] = useState(1);
+  const [minute, setMinute] = useState(0);
+  const [isAM, setIsAM] = useState(true);
+
   // Type constants.
   const publicType = "Public";
   const privateType = "Private";
@@ -118,6 +122,27 @@ const Create = () => {
           min="1"
         />
         <label>Time:</label>
+        <input
+          value={hour}
+          onChange={(e) => setHour(e.target.value)}
+          type="number"
+          min="1"
+          max="12"
+        />:
+        <input /* FIXME - Is there a way to always make this two digits?*/
+          value={minute}
+          onChange={(e) => setMinute(e.target.value)}
+          type="number"
+          min="0"
+          max="59"
+        />
+        <select
+          value={isAM}
+          onChange={(e) => setIsAM(e.target.value === 'true')}
+        >
+          <option value="true">AM</option>
+          <option value="false">PM</option>
+        </select>
         <label>Description:</label>
         <textarea
           required
