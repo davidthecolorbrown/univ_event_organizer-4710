@@ -39,7 +39,7 @@ const EventList = ({events, keyword}) => {
       hour -= 12;
 
     // Convert to a string.
-    const timeStr = month + " " + date + " " + year + ", " + hour + ":" + minute;
+    const timeStr = month + " " + date + " " + year + ", " + hour + ":" + minute.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
     
     // Add whether it's AM or PM and return.
     if(isAM)
