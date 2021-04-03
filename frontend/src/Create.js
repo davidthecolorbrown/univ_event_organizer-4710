@@ -165,9 +165,9 @@ const Create = () => {
         />
         <label>Visibility:</label>
         <div>
-          <input type="radio" value="public" checked={type === 0} onChange={(e) => setType(publicType)} /> Everyone
-          <input type="radio" value="private" checked={type === 1} onChange={(e) => setType(privateType)} /> Students only
-          <input type="radio" value="rso" checked={type === 2} onChange={(e) => setType(rsoType)} /> RSO members only
+          <input type="radio" value="public" checked={type === publicType} onChange={(e) => setType(publicType)} /> Everyone
+          <input type="radio" value="private" checked={type === privateType} onChange={(e) => setType(privateType)} /> Students only
+          <input type="radio" value="rso" checked={type === rsoType} onChange={(e) => setType(rsoType)} /> RSO members only
         </div>
         <button>Submit Event</button>
       </form>
