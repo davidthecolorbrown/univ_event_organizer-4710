@@ -7,7 +7,6 @@ const Create = () => {
   const [location, setLocation] = useState('');
   const [name, setName] = useState('');
   const [description, setDesc] = useState('');
-  const [time, setTime] = useState(0);
   const [type, setType] = useState('Public');
   const history = useHistory();
 
@@ -35,10 +34,17 @@ const Create = () => {
     const isPrivate = (type === privateType);
     const isRSO = (type === rsoType);
 
+    // If this is PM, adjust the hour.
+    if(!isAM)
+      setHour(hour + 12);
+
+    // Create the Date object.
+    const date = new Date(year, month - 1, day, hour, minute, 0);
+
     // Set the transitional values.
     const note = description;
     const title = name;
-    const date = time;
+    const time = date;
 
     // Set created_at to the current time.
     const created_at = new Date();
@@ -78,6 +84,7 @@ const Create = () => {
   }
 
   // Return the page.
+  // FIXME - Make some of this non-centered.
   return (
     <div className="create">
       <h2>Create a New Event</h2>

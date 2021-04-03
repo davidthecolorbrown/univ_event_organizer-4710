@@ -23,38 +23,29 @@ const EventList = ({events, keyword}) => {
     // Months in English abbreviations.
     const monthAbbrs = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-    // Split into the date and time.
-    const dateTime = mongoDate.split("T");
+    // Convert to Date object and extract the values.
+    const dateObj = new Date(mongoDate);
+    const year = dateObj.getFullYear();
+    const month = monthAbbrs[dateObj.getMonth()];
+    const date = dateObj.getDate();
+    var hour = dateObj.getHours();
+    const minute = dateObj.getMinutes();
 
-    // Split the date into year, month, and day.
-    const dateParts = dateTime[0].split("-");
+    // Check whether it's AM or PM and adjust further based on value.
+    const isAM = (hour < 12);
+    if(isAM && hour === 0)
+      hour = 12;
+    else if(!isAM && hour !== 12)
+      hour -= 12;
 
-    // Parse the month and day and make a string of them.
-    const date = monthAbbrs[parseInt(dateParts[1]) - 1] + " " + parseInt(dateParts[2]);
-
-    //2021-03-31T01:01:04.789Z
-
-    // Split the time into hours, minutes, and seconds.
-    const timeParts = dateTime[1].split(":");
-
-    // Parse the hour and adjust for current UTC offset.
-    const utcOffset = new Date().getTimezoneOffset();
-    const hour = parseInt(timeParts[0]) + (utcOffset / 60);
-
-    // Parse the minutes.
-    const minutes = parseInt(timeParts[1]);
-
-    // Create the time string, combine with the date, and return.
-    if(hour < 12)
-    {
-      const time = hour + ":" + minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + " AM";
-      return date + ", " + time;
-    }
+    // Convert to a string.
+    const timeStr = month + " " + date + " " + year + ", " + hour + ":" + minute;
+    
+    // Add whether it's AM or PM and return.
+    if(isAM)
+      return timeStr + " AM";
     else
-    {
-      const time = (hour - 12) + ":" + minutes.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) + " PM";
-      return date + ", " + time;
-    }
+      return timeStr + " PM";
   }
 
   // set the css styling for search bar
