@@ -1,15 +1,15 @@
-import BlogList from "./BlogList";
+import EventList from "./EventList";
 import useFetch from "./useFetch";
 
 const Home = () => {
-  //const { error, isPending, data: blogs } = useFetch('http://localhost:3002/api/note')
-  const { error, isPending, data: blogs } = useFetch('http://localhost:3002/api/event')
+  //const { error, isPending, data: events } = useFetch('http://localhost:3002/api/note')
+  const { error, isPending, data: events } = useFetch('http://localhost:3002/api/event')
 
   return (
     <div className="home">
       { error && <div>{ error }</div> }
       { isPending && <div>Loading...</div> }
-      { blogs && <BlogList blogs={blogs} /> }
+      { events && <EventList events={events} /> }
     </div>
   );
 }
