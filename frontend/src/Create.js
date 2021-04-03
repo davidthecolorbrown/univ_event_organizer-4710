@@ -5,7 +5,7 @@ import { useHistory } from "react-router-dom";
 const Create = () => {
   // Define the fields.
   const [location, setLocation] = useState('');
-  const [name, setName] = useState('');
+  const [event_name, setName] = useState('');
   const [description, setDesc] = useState('');
   const [type, setType] = useState('Public');
   const history = useHistory();
@@ -34,26 +34,28 @@ const Create = () => {
     const isPrivate = (type === privateType);
     const isRSO = (type === rsoType);
 
-    // If this is PM, adjust the hour.
-    if(!isAM)
-      setHour(hour + 12);
-
     // Create the Date object.
     const date = new Date(year, month - 1, day, hour, minute, 0);
 
+    // Adjust the hour if it's PM or 12 AM.
+    if(isAM === false && date.getHours() !== 12)
+      date.setHours(hour + 12);
+    else if(isAM === true && date.getHours() === 12)
+      date.setHours(0);
+
     // Set the transitional values.
     const note = description;
-    const title = name;
+    const title = event_name;
     const time = date;
 
     // Set created_at to the current time.
     const created_at = new Date();
 
     // Define the event.
-    const event = {location, name, description, isRSO, isPrivate, type, title, note, time, date, created_at};
+    const event = {location, event_name, description, isRSO, isPrivate, type, title, note, time, date, created_at};
 
     // Post the event as a JSON string.
-    fetch('http://localhost:3002/api/note', {
+    fetch('http://localhost:3002/api/event', {
       method: 'POST',
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(event)
@@ -93,7 +95,7 @@ const Create = () => {
         <input 
           type="text" 
           required 
-          value={name}
+          value={event_name}
           onChange={(e) => setName(e.target.value)}
         />
         <label>Date:</label>
@@ -145,11 +147,12 @@ const Create = () => {
         />
         <select
           value={isAM}
-          onChange={(e) => setIsAM(e.target.value === 'true')}
+          onChange={(e) => setIsAM(e.target.value === "true")}
         >
           <option value="true">AM</option>
           <option value="false">PM</option>
         </select>
+        <label>Is it AM? {String(isAM)}</label>
         <label>Description:</label>
         <textarea
           required
