@@ -3,6 +3,7 @@ import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Create from './Create';
 import EventDetails from './EventDetails';
+import EventView from './EventView';
 import NotFound from './NotFound';
 
 function App() {
@@ -19,7 +20,8 @@ function App() {
               <Create />
             </Route>
             <Route path="/note/:id">
-              <EventDetails />
+              {/*<EventDetails />*/}
+              <EventView/>
             </Route>
             <Route path="*">
               <NotFound />
