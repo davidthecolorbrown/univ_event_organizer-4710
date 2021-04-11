@@ -152,7 +152,6 @@ const Create = () => {
           <option value="true">AM</option>
           <option value="false">PM</option>
         </select>
-        <label>Is it AM? {String(isAM)}</label>
         <label>Description:</label>
         <textarea
           required
