@@ -77,11 +77,10 @@ const EventDetails = () => {
       { event && (
         <article>
         <div className="create">
-          <h2>{ event.title }</h2>
+          <h2>Editing { event.event_name }...</h2>
 
           <form onSubmit={handleUpdate}>
-          <label>Title: </label>
-          <br></br>
+          <label>Name: </label>
           <textarea name="event_name" defaultValue={event.event_name} onChange={handleChange} />
           <br></br><br></br>
           <label>Type: </label>
@@ -91,6 +90,7 @@ const EventDetails = () => {
           <br></br><br></br>
           <label>Note: </label>
           <br></br>*/}
+          <label>Description: </label>
           <textarea name="description" defaultValue={event.description} onChange={handleChange} />
           <br></br>
           <br></br>
