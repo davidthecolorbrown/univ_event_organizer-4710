@@ -82,14 +82,15 @@ const EventDetails = () => {
           <form onSubmit={handleUpdate}>
           <label>Name: </label>
           <textarea name="event_name" defaultValue={event.event_name} onChange={handleChange} />
-          <br></br><br></br>
-          <label>Type: </label>
           <br></br>
-          {/*FIXME: Switch to radio button like in Create.js
+          <label>Location: </label>
+          <textarea name="location" defaultValue={event.location} onChange={handleChange} />
+          <br></br>
+          {/* FIXME: Add date/time setting here
+          <label>Type: </label>
+          FIXME: Switch to radio button like in Create.js
           <textarea name="type" defaultValue={event.type} onChange={handleChange} />
-          <br></br><br></br>
-          <label>Note: </label>
-          <br></br>*/}
+          <br></br><br></br>*/}
           <label>Description: </label>
           <textarea name="description" defaultValue={event.description} onChange={handleChange} />
           <br></br>
