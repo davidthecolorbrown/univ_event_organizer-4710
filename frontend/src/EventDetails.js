@@ -74,6 +74,17 @@ const EventDetails = () => {
       else if(change.target.value === "rso")
         setUpdate({...update, ["isPrivate"]: false, ["isRSO"]: true});
     }
+
+    // If this is a change to a time value,
+    // create a new Date object with the new value.
+    else if(change.target.name === "month")
+    {
+      const date = new Date(event.date);
+      date.setMonth(change.target.value - 1);
+      setUpdate({...update, ["date"]: date});
+    }
+
+    // Everything else can be handled easily.
     else
       setUpdate({...update, [change.target.name]: change.target.value});
     console.log("state changing");
@@ -112,7 +123,61 @@ const EventDetails = () => {
               onChange={handleChange}
             />
             <br/>
-            {/* FIXME: Add date/time setting here */}
+            <label>Date:</label>
+            <select
+              name="month"
+              defaultValue={new Date(event.date).getMonth() + 1}
+              onChange={handleChange}
+            >
+              <option value="1">Jan</option>
+              <option value="2">Feb</option>
+              <option value="3">Mar</option>
+              <option value="4">Apr</option>
+              <option value="5">May</option>
+              <option value="6">Jun</option>
+              <option value="7">Jul</option>
+              <option value="8">Aug</option>
+              <option value="9">Sept</option>
+              <option value="10">Oct</option>
+              <option value="11">Nov</option>
+              <option value="12">Dec</option>
+            </select>
+            {/*<input
+              value={day}
+              onChange={(e) => setDay(e.target.value)}
+              type="number"
+              min="1"
+              max={calcMaxDay()}
+            />
+            <input
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              type="number"
+              defaultValue="2021"
+              min="1"
+            />
+            <label>Time:</label>
+            <input
+              value={hour}
+              onChange={(e) => setHour(e.target.value)}
+              type="number"
+              min="1"
+              max="12"
+            />:
+            <input /* FIXME - Is there a way to always make this two digits?
+              value={minute}
+              onChange={(e) => setMinute(e.target.value)}
+              type="number"
+              min="0"
+              max="59"
+            />
+            <select
+              value={isAM}
+              onChange={(e) => setIsAM(e.target.value === "true")}
+            >
+              <option value="true">AM</option>
+              <option value="false">PM</option>
+            </select>*/}
             <label>Type: </label>
             <div onChange={handleChange}>
               <input type="radio" name="type" value="public" defaultChecked={!event.isRSO && !event.isPrivate} /> Everyone
