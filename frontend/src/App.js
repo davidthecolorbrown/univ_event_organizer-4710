@@ -20,8 +20,9 @@ function App() {
               <Create />
             </Route>
             <Route path="/note/:id">
-              {/*<EventDetails />*/}
-              <EventView/>
+              {/* Decide which is taken based on user permissions. */}
+              <EventDetails />
+              {/* <EventView/> */}
             </Route>
             <Route path="*">
               <NotFound />

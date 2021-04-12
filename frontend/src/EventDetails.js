@@ -59,8 +59,23 @@ const EventDetails = () => {
   }
 
   // handleChange - Update the state of update.
-  function handleChange(change) {
-    setUpdate({...update, [change.target.name]: change.target.value})
+  function handleChange(change)
+  {
+    console.log(change.target.name + " | " + change.target.value + "\n");
+
+    // If the change was to type, edit isPrivate and isRSO based on the value
+    // (which is the name of the radio button selected).
+    if(change.target.name === "type")
+    {
+      if(change.target.value === "public")
+        setUpdate({...update, ["isPrivate"]: false, ["isRSO"]: false});
+      else if(change.target.value === "private")
+        setUpdate({...update, ["isPrivate"]: true, ["isRSO"]: false});
+      else if(change.target.value === "rso")
+        setUpdate({...update, ["isPrivate"]: false, ["isRSO"]: true});
+    }
+    else
+      setUpdate({...update, [change.target.name]: change.target.value});
     console.log("state changing");
   }
 
@@ -82,19 +97,22 @@ const EventDetails = () => {
           <form onSubmit={handleUpdate}>
           <label>Name: </label>
           <textarea name="event_name" defaultValue={event.event_name} onChange={handleChange} />
-          <br></br>
+          <br/>
           <label>Location: </label>
           <textarea name="location" defaultValue={event.location} onChange={handleChange} />
-          <br></br>
-          {/* FIXME: Add date/time setting here
+          <br/>
+          {/* FIXME: Add date/time setting here */}
           <label>Type: </label>
-          FIXME: Switch to radio button like in Create.js
-          <textarea name="type" defaultValue={event.type} onChange={handleChange} />
-          <br></br><br></br>*/}
+          <div onChange={handleChange}>
+            <input type="radio" name="type" value="public" defaultChecked={!event.isRSO && !event.isPrivate} /> Everyone
+            <input type="radio" name="type" value="private" defaultChecked={event.isPrivate} /> Students only
+            <input type="radio" name="type" value="rso" defaultChecked={event.isRSO} /> RSO members only
+          </div>
+          <br/>
+          <br/>
           <label>Description: </label>
           <textarea name="description" defaultValue={event.description} onChange={handleChange} />
-          <br></br>
-          <br></br>
+          <br/><br/>
           <button type="submit" > Update </button>
         </form>
         
