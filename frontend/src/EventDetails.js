@@ -93,31 +93,42 @@ const EventDetails = () => {
         <article>
         <div className="create">
           <h2>Editing { event.event_name }...</h2>
-
           <form onSubmit={handleUpdate}>
-          <label>Name: </label>
-          <textarea name="event_name" defaultValue={event.event_name} onChange={handleChange} />
-          <br/>
-          <label>Location: </label>
-          <textarea name="location" defaultValue={event.location} onChange={handleChange} />
-          <br/>
-          {/* FIXME: Add date/time setting here */}
-          <label>Type: </label>
-          <div onChange={handleChange}>
-            <input type="radio" name="type" value="public" defaultChecked={!event.isRSO && !event.isPrivate} /> Everyone
-            <input type="radio" name="type" value="private" defaultChecked={event.isPrivate} /> Students only
-            <input type="radio" name="type" value="rso" defaultChecked={event.isRSO} /> RSO members only
-          </div>
-          <br/>
-          <br/>
-          <label>Description: </label>
-          <textarea name="description" defaultValue={event.description} onChange={handleChange} />
-          <br/><br/>
-          <button type="submit" > Update </button>
-        </form>
-        
-        <div><button onClick={handleDelete}>Delete</button></div>
-        <div><button onClick={handleCancel}>Cancel</button></div>
+            <label>Name: </label>
+            <input 
+              name="event_name"
+              type="text"
+              required
+              defaultValue={event.event_name}
+              onChange={handleChange}
+            />
+            <br/>
+            <label>Location: </label>
+            <input 
+              name="location"
+              type="text"
+              required
+              defaultValue={event.location}
+              onChange={handleChange}
+            />
+            <br/>
+            {/* FIXME: Add date/time setting here */}
+            <label>Type: </label>
+            <div onChange={handleChange}>
+              <input type="radio" name="type" value="public" defaultChecked={!event.isRSO && !event.isPrivate} /> Everyone
+              <input type="radio" name="type" value="private" defaultChecked={event.isPrivate} /> Students only
+              <input type="radio" name="type" value="rso" defaultChecked={event.isRSO} /> RSO members only
+            </div>
+            <br/>
+            <br/>
+            <label>Description: </label>
+            <textarea name="description" defaultValue={event.description} onChange={handleChange} />
+            <br/><br/>
+            <button type="submit" > Update </button>
+          </form>
+          
+          <div><button onClick={handleDelete}>Delete</button></div>
+          <div><button onClick={handleCancel}>Cancel</button></div>
         </div>
         </article>
       )}
