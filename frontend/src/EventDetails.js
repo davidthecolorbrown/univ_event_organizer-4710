@@ -18,6 +18,16 @@ const EventDetails = () => {
   // Create an empty event to hold all updates.
   const [update, setUpdate] = useState({})
 
+  // Valid maximum date per month.
+  const monthMax = [31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+
+  // Current month and year.
+  // They are consts since they need to be updateable and accessible
+  // without having to crack open the Date object.
+  const [month, setMonth] = useState(0);
+  const [year, setYear] = useState(0);
+  const [newDate, setNewDate] = useState(null);
+
   // handleDelete - Handle the deletion of the event.
   const handleDelete = () => {
     
@@ -58,6 +68,25 @@ const EventDetails = () => {
     console.log(update);
   }
 
+  // calcMaxDay - Calculate the maximum day value allowed.
+  const calcMaxDay = () =>
+  {
+    // Check leap year conditions if February.
+    if(month == 2)
+    {
+      if (year % 4 !== 0)
+        return 28;
+      else if (year % 100 !== 0)
+        return 29;
+      else if (year % 400 !== 0)
+        return 28;
+      else
+        return 29;
+    }
+    else
+      return monthMax[month - 1];
+  }
+
   // handleChange - Update the state of update.
   function handleChange(change)
   {
@@ -76,12 +105,24 @@ const EventDetails = () => {
     }
 
     // If this is a change to a time value,
-    // create a new Date object with the new value.
+    // create a new Date object with the new value
+    // and edit the global variables if necessary.
     else if(change.target.name === "month")
     {
-      const date = new Date(event.date);
-      date.setMonth(change.target.value - 1);
-      setUpdate({...update, ["date"]: date});
+      setMonth(change.target.value);
+      newDate.setMonth(change.target.value - 1);
+      setUpdate({...update, ["date"]: newDate, ["time"]: newDate});
+    }
+    else if(change.target.name === "day")
+    {
+      newDate.setDate(change.target.value);
+      setUpdate({...update, ["date"]: newDate, ["time"]: newDate});
+    }
+    else if(change.target.name === "year")
+    {
+      setYear(change.target.value);
+      newDate.setFullYear(change.target.value);
+      setUpdate({...update, ["date"]: newDate, ["time"]: newDate});
     }
 
     // Everything else can be handled easily.
@@ -93,6 +134,35 @@ const EventDetails = () => {
   // handleCancel - If cancel button is pushed, go to homepage.
   const handleCancel = () => {
       history.push('/');
+  }
+
+  // getMonth - If the month variable has not been set yet, set it.
+  //            Otherwise, return the current value.
+  const getMonth = () => {
+    if(month === 0)
+    {
+      // Get the date object.
+      const dateObj = new Date(event.date);
+
+      // Save the object as newDate for later.
+      setNewDate(dateObj);
+
+      // Save and return the month value.
+      setMonth(dateObj.getMonth() + 1);
+      return dateObj.getMonth() + 1;
+    }
+    return month;
+  }
+
+  // getYear - Same as above but with year.
+  const getYear = () => {
+    if(year === 0)
+    {
+      const dateObj = new Date(event.date);
+      setYear(dateObj.getFullYear());
+      return dateObj.getFullYear();
+    }
+    return year;
   }
 
   // Render the EditNote component.
@@ -126,7 +196,8 @@ const EventDetails = () => {
             <label>Date:</label>
             <select
               name="month"
-              defaultValue={new Date(event.date).getMonth() + 1}
+              /* Don't remove the parentheses, or defaultValue will be 0! */
+              defaultValue={getMonth()}
               onChange={handleChange}
             >
               <option value="1">Jan</option>
@@ -142,21 +213,23 @@ const EventDetails = () => {
               <option value="11">Nov</option>
               <option value="12">Dec</option>
             </select>
-            {/*<input
-              value={day}
-              onChange={(e) => setDay(e.target.value)}
+            <input
+              name="day"
+              defaultValue={new Date(event.date).getDate()}
+              onChange={handleChange}
               type="number"
               min="1"
               max={calcMaxDay()}
             />
             <input
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
+              name="year"
+              /* Don't remove the parentheses, or defaultValue will be 0! */
+              defaultValue={getYear()}
+              onChange={handleChange}
               type="number"
-              defaultValue="2021"
               min="1"
             />
-            <label>Time:</label>
+            {/*<label>Time:</label>
             <input
               value={hour}
               onChange={(e) => setHour(e.target.value)}
