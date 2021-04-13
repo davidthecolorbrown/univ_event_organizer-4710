@@ -27,6 +27,7 @@ const EventDetails = () => {
   const [month, setMonth] = useState(0);
   const [year, setYear] = useState(0);
   const [newDate, setNewDate] = useState(null);
+  const [isAM, setIsAM] = useState(null);
 
   // handleDelete - Handle the deletion of the event.
   const handleDelete = () => {
@@ -124,6 +125,42 @@ const EventDetails = () => {
       newDate.setFullYear(change.target.value);
       setUpdate({...update, ["date"]: newDate, ["time"]: newDate});
     }
+    else if(change.target.name === "hour")
+    {
+      // Set the new hour based on the value of isAM.
+      if(isAM)
+      {
+        if(change.target.value === 12)
+          newDate.setHours(0);
+        else
+          newDate.setHours(change.target.value);
+      }
+      else
+      {
+        if(change.target.value === 12)
+          newDate.setHours(change.target.defaultValue);
+        else
+          newDate.setHours(change.target.value + 12);
+      }
+      setUpdate({...update, ["date"]: newDate, ["time"]: newDate});
+    }
+    else if(change.target.name === "minute")
+    {
+      newDate.setMinutes(change.target.value);
+      setUpdate({...update, ["date"]: newDate, ["time"]: newDate});
+    }
+    else if(change.target.name === "isAM")
+    {
+      setIsAM(change.target.value);
+
+      // Adjust the hour to meet the current AM/PM setting.
+      if(change.target.value === true)
+        newDate.setHours(newDate.getHours() - 12);
+      else
+        newDate.setHours(newDate.getHours() + 12);
+      
+      setUpdate({...update, ["date"]: newDate, ["time"]: newDate});
+    }
 
     // Everything else can be handled easily.
     else
@@ -144,8 +181,9 @@ const EventDetails = () => {
       // Get the date object.
       const dateObj = new Date(event.date);
 
-      // Save the object as newDate for later.
+      // Save the object as newDate for later and set isAM.
       setNewDate(dateObj);
+      setIsAM(dateObj.getHours() < 12);
 
       // Save and return the month value.
       setMonth(dateObj.getMonth() + 1);
@@ -163,6 +201,17 @@ const EventDetails = () => {
       return dateObj.getFullYear();
     }
     return year;
+  }
+
+  // getInitialHour - Return the initial value of hour.
+  const getInitialHour = () => {
+    const rawHour = new Date(event.date).getHours();
+    if(rawHour === 0)
+      return 12;
+    else if (rawHour <= 12)
+      return rawHour;
+    else
+      return rawHour - 12;
   }
 
   // Render the EditNote component.
@@ -229,28 +278,31 @@ const EventDetails = () => {
               type="number"
               min="1"
             />
-            {/*<label>Time:</label>
+            <label>Time:</label>
             <input
-              value={hour}
-              onChange={(e) => setHour(e.target.value)}
+              name="hour"
+              defaultValue={getInitialHour()}
+              onChange={handleChange}
               type="number"
               min="1"
               max="12"
             />:
-            <input /* FIXME - Is there a way to always make this two digits?
-              value={minute}
-              onChange={(e) => setMinute(e.target.value)}
+            <input /* FIXME - Is there a way to always make this two digits? */
+              name="minute"
+              defaultValue={new Date(event.date).getMinutes()}
+              onChange={handleChange}
               type="number"
               min="0"
               max="59"
             />
             <select
-              value={isAM}
-              onChange={(e) => setIsAM(e.target.value === "true")}
+              name="isAM"
+              defaultValue={(new Date(event.date).getHours()) < 12}
+              onChange={handleChange}
             >
               <option value="true">AM</option>
               <option value="false">PM</option>
-            </select>*/}
+            </select>
             <label>Type: </label>
             <div onChange={handleChange}>
               <input type="radio" name="type" value="public" defaultChecked={!event.isRSO && !event.isPrivate} /> Everyone
