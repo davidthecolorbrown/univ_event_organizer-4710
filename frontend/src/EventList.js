@@ -61,12 +61,11 @@ const EventList = ({events, keyword}) => {
           placeholder={"search notes by type"}
           onChange={(e) => updateSearch(e.target.value)}
       />
-      {/* {events.map(event => ( */}
       {eventList.map(event => (
         <div className="event-preview" key={event._id} >
           {console.log(event._id)}
           <Link to={`/note/${event._id}`}>
-            <h2>{ event.title }</h2>
+            <h2>{ event.event_name }</h2>
             <p>Date: { toReadableDT(event.date) }</p>
             <p>Location: { event.location }</p>
             {/*<p>Type: { event.type }</p>
