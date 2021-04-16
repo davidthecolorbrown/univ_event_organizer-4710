@@ -4,28 +4,18 @@ const Schema = mongoose.Schema;
 
 // create schema and model
 // pass in object with different properties and their data types
-const UserSchema = new Schema({
+const RSOSchema = new Schema({
     uid: {
         type: Number,
         default: 1
     },
-    firstname: {
+    name: {
         type: String,
-        default: "NaN"
+        default: "No RSO name"
     },
-    lastname: {
+    description: {
         type: String,
-        default: "NaN"
-    },
-    login: {
-        type: String
-    },
-    pw: {
-        type: String
-    },
-    isSuper: {
-        type: Boolean,
-        default: false
+        default: "No RSO description"
     },
     isAdmin: {
         type: Boolean,
@@ -41,7 +31,7 @@ const UserSchema = new Schema({
 //const Users = mongoose.model('Users', UsersSchema);
 
 // export so you can use in app
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongoose.model('RSO', RSOSchema);
 
 // ... 
 // create a new user in another file

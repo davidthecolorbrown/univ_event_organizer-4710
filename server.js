@@ -32,6 +32,8 @@ app.use(bodyParser.json());
 
 //
 app.use('/api', require('./routes/api'))
+app.use('/api', require('./routes/users'))
+app.use('/api', require('./routes/events'))
 
 // connect to mongoDB with log messages for successful/unsuccessful connection
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useFindAndModify: false });
