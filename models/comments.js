@@ -4,22 +4,26 @@ const Schema = mongoose.Schema;
 
 // create schema and model
 // pass in object with different properties and their data types
-const NoteSchema = new Schema({
-    date: {
-        type: Date,
-        default: Date.now
+const CommentSchema = new Schema({
+    uid: {
+        type: Number,
+        default: 1
     },
-    type: {
-        type: String,
-        default: "random"
+    eid: {
+        type: Number,
+        default: 7
     },
     title: {
         type: String,
-        default: "No title"
+        default: "No Comment Title"
     },
-    note: {
+    body: {
         type: String,
-        default: ""
+        default: "No Comment Body"
+    },
+    isAdmin: {
+        type: Boolean,
+        default: false
     },
     created_at: {
         type: Date,
@@ -31,7 +35,7 @@ const NoteSchema = new Schema({
 //const Users = mongoose.model('Users', UsersSchema);
 
 // export so you can use in app
-module.exports = mongoose.model('Note', NoteSchema);
+module.exports = mongoose.model('Comment', CommentSchema);
 
 // ... 
 // create a new user in another file
