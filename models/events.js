@@ -2,6 +2,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// import comments object/schema so user can see each events comments
+const Comment = require('../models/comments');
+
 // create schema and model
 // pass in object with different properties and their data types
 const EventSchema = new Schema({
@@ -33,17 +36,25 @@ const EventSchema = new Schema({
         type: Boolean,
         default: false
     },
-    type: {
-        type: String,
-        default: "Public/Private/RSO"
+    RSO_id: {
+        type: Number,
+        default: 0
     },
     title: {
         type: String,
         default: "No event title (same as event_name)"
     },
-    note: {
+    description: {
         type: String,
         default: "No event description (same as description)"
+    },
+    admin_id: {
+        type: Number,
+        default: 0
+    },
+    comments: {
+        type: [Comment.schema],
+        default: [{}]
     },
     date: {
         type: Date,

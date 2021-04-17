@@ -7,11 +7,11 @@ const Schema = mongoose.Schema;
 const CommentSchema = new Schema({
     uid: {
         type: Number,
-        default: 1
+        default: 0
     },
-    eid: {
+    event_id: {
         type: Number,
-        default: 7
+        default: 0
     },
     title: {
         type: String,
@@ -24,6 +24,10 @@ const CommentSchema = new Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    rating: {
+        type: Number,
+        default: 5
     },
     created_at: {
         type: Date,
