@@ -7,7 +7,8 @@ const router = express.Router();
 // import event database model
 const Event = require('../models/events');
 const User = require('../models/users');
-const Comments = require('../models/comments');
+const Comment = require('../models/comments');
+const RSO = require('../models/rsos');
 
 // API endpoint - GET list of all events (or only list of events from query)
 //http://localhost:3001/api/event
@@ -79,7 +80,8 @@ router.post('/event', function(req, res, next) {
 });
 
 // API endpoint - post new comment
-router.post('/event/:event_id/comments', function(req, res, next) {
+router.post('/event/:event_id/comments', function(req, res) {
+//router.post('/event/:event_id/comments', function(req, res, next) {
 //router.post('/event/:event_id/:uid/comments', function(req, res, next) {
 //router.post('/event/:event_id/comments', verifyToken,function(req, res, next) {
 
@@ -97,9 +99,16 @@ router.post('/event/:event_id/comments', function(req, res, next) {
             //res.send(err);
         //};
 
-        // add new budget to new user's budget array
+        // add new comment to events array, save
         event.comments.push(newComment);
-        res.json(event);
+        event.save();
+
+        console.log(event.comments);
+        //console.log(event.title);
+        //res.json(event);
+
+        // respond with comments array
+        res.json(event.comments);
 
     });
 
@@ -130,7 +139,6 @@ router.delete('/event/:id', function(req, res) {
         res.send(event);
     });
 })
-
 
 // API endpoint - GET list of all users (or only list of users from query)
 //http://localhost:3001/api/user
@@ -238,6 +246,87 @@ router.delete('/user/:id', function(req, res) {
     User.findByIdAndRemove({ _id: req.params.id }, req.body).then(function(user) {
         // send update back to as response
         res.send(user);
+    });
+})
+
+
+
+
+
+// API endpoint - GET list of all rsos (or only list of rsos from query)
+router.get('/rso', function(req, res) {
+    //console.log(req.query);
+    //console.log(req.query.start_date);
+    //console.log(req.query.end_date);
+
+    RSO.find({}).then(function(rsos) {
+        //console.log(rsos);
+        res.send(rsos);
+    });
+});
+
+// API endpoint - get list of all THIS RSOs events
+router.get('/rso/:RSO_id/events', function(req, res) {
+    //res.send(req.params.event_id);
+    console.log("REQ.PARAMS.RSO_ID: " + req.params.RSO_id);
+
+    //
+    RSO.findOne({ RSO_id: req.params.RSO_id }).then(function(rso) {
+    //Event.findOne({ event_id: req.params.event_id }).then(function(event) {
+        // check for errors, respond if occurs
+        //if (err) {
+            //res.send(err);
+            //return;
+        //};
+
+        // respond with array of rso_budgets
+        res.send(rso.events);
+        console.log(rso.events);
+
+    });
+});
+
+// API endpoint - GET a rso by RSO_id
+router.get('/rso/:RSO_id', function(req, res) {
+    console.log("REQ.PARAMS.RSO_id: " + req.params.RSO_id);
+    
+    // check if this works by finding rso's unique _id and checking for update
+    RSO.findOne({ RSO_id: req.params.RSO_id }).then(function(rso) {
+        // send update back to as response
+        res.send(rso);
+    });
+});
+
+// API endpoint - post new rso
+router.post('/rso', function(req, res, next) {
+    console.log(req.body)
+    RSO.create(req.body).then(function(rso) {
+        res.send(rso);
+    }).catch(next);
+});
+
+// API endpoint - update a rso
+router.put('/rso/:RSO_id', function(req, res) {
+    console.log(req);
+    
+    // find rso document by id and update with request body
+    RSO.findOneAndUpdate({ RSO_id: req.params.RSO_id }, req.body).then(function() {
+        // check if this works by finding rso's unique _id and checking for update
+        RSO.findOne({ RSO_id: req.params.RSO_id }).then(function(rso) {
+            console.log(rso);
+            // send update back to as response
+            res.send(rso);
+            
+        });
+    });
+});
+
+// API endpoint - delete a rso
+router.delete('/rso/:RSO_id', function(req, res) {
+    // find rso document by id, delete
+    RSO.findByIdAndRemove({ RSO_id: req.params.RSO_id }, req.body).then(function(rso) {
+        // send update back to as response
+        res.send(rso);
     });
 })
 
