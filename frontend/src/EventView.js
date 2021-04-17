@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import useFetch from "./useFetch";
 
 // EventView - A viewer for an event.
@@ -59,10 +59,20 @@ const EventView = () => {
         else
             return "";
     }
+
+    // avgRating - Return the average rating of all comments.
+    const avgRating = () => {
+      if(event.comments.length === 0)
+        return "No ratings yet."
+      
+      var ratingSum = 0;
+      event.comments.forEach(comment => ratingSum += comment.rating);
+      return ratingSum / event.comments.length;
+    }
   
     // Render the EventView component.
     return (
-      <div className="blog-details">
+      <div className="event-details">
         { isPending && <div>Loading...</div> }
         { error && <div>{ error }</div> }
         { event && (
@@ -73,9 +83,26 @@ const EventView = () => {
             <h3>{event.location}</h3>
             {typeMessage()}<br/>
             <hr/><br/>
-            {event.description}
+            {event.description}<br/>
+            <hr/><br/><br/>
+            <h2>Comments</h2>
+            Average rating: {avgRating()} <br/>
+            {event.comments.map(comment => (
+              <article>
+              <div className="comments" key={comment._id}>
+                {console.log(comment._id)}
+                <h3>{ comment.title }</h3>
+                {/* Replace with a graphic */}
+                <p>Rating: {comment.rating} / 5</p>
+                {/* Print Username of poster */}
+                <p>Posted: { toReadableDate(comment.date) + ", " + toReadableTime(comment.date) }</p>
+                <p>{ comment.body }</p>
+              </div>
+              </article>
+            ))}
+            <Link to={`/comment/${event.event_id}`}>Add a comment</Link>
           </article>
-        )}
+          )}
       </div>
     );
   }

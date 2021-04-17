@@ -1,6 +1,7 @@
 import Navbar from './Navbar';
 import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AddComment from './AddComment';
 import Create from './Create';
 import EventDetails from './EventDetails';
 import EventView from './EventView';
@@ -19,10 +20,13 @@ function App() {
             <Route path="/create">
               <Create />
             </Route>
+            <Route path="/comment/:id">
+              <AddComment/> 
+            </Route>
             <Route path="/note/:id">
               {/* Decide which is taken based on user permissions. */}
-              <EventDetails />
-              {/* <EventView/> */}
+              {/* <EventDetails /> */}
+              <EventView/> 
             </Route>
             <Route path="*">
               <NotFound />
