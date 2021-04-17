@@ -48,6 +48,8 @@ const Create = () => {
     const title = event_name;
     const time = date;
 
+    // If the user is not an RSO manager, publish with a flag so that the superadmin knows to review it.
+
     // Set created_at to the current time.
     const created_at = new Date();
 
@@ -98,6 +100,7 @@ const Create = () => {
           value={event_name}
           onChange={(e) => setName(e.target.value)}
         />
+        {/* If user is an admin, select an affiliated RSO */}
         <label>Date:</label>
         <select
           value={month}
@@ -159,6 +162,7 @@ const Create = () => {
           onChange={(e) => setDesc(e.target.value)}
         ></textarea>
         <label>Location:</label>
+        {/* FIXME: We're supposed to put a maps widget here that gets placename, longitude, and latitude. */}
         <input 
           type="text" 
           required 
@@ -166,6 +170,7 @@ const Create = () => {
           onChange={(e) => setLocation(e.target.value)}
         />
         <label>Visibility:</label>
+        {/* FIXME: Disable "RSO" if the user is not an admin */}
         <div>
           <input type="radio" value="public" checked={type === publicType} onChange={(e) => setType(publicType)} /> Everyone
           <input type="radio" value="private" checked={type === privateType} onChange={(e) => setType(privateType)} /> Students only
