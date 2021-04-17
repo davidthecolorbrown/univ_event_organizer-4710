@@ -2,12 +2,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// import events/user object/schema so RSO has a list of events, users
+const Event = require('../models/events');
+const User = require('../models/users');
+
 // create schema and model
 // pass in object with different properties and their data types
 const RSOSchema = new Schema({
-    uid: {
+    RSO_id: {
         type: Number,
-        default: 1
+        default: 0
     },
     name: {
         type: String,
@@ -17,9 +21,17 @@ const RSOSchema = new Schema({
         type: String,
         default: "No RSO description"
     },
-    isAdmin: {
-        type: Boolean,
-        default: false
+    admin: {
+        type: Number,
+        default: 0
+    },
+    users: {
+        type: [User.schema],
+        default: [{}]
+    },
+    events: {
+        type: [Event.schema],
+        default: [{}]
     },
     created_at: {
         type: Date,

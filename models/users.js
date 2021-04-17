@@ -2,6 +2,9 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// import events object/schema so user can see each events comments
+const Event = require('../models/events');
+
 // create schema and model
 // pass in object with different properties and their data types
 const UserSchema = new Schema({
@@ -30,6 +33,10 @@ const UserSchema = new Schema({
     isAdmin: {
         type: Boolean,
         default: false
+    },
+    events: {
+        type: [Event.schema],
+        default: [{}]
     },
     created_at: {
         type: Date,

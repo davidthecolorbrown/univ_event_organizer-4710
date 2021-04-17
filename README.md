@@ -24,6 +24,63 @@
 * After an event has been published, users can add, remove, and edit comments on the event, as well as rate the event with up to 5 stars.
 * The application should offer some social network integration, e.g., posting from the application to Facebook or Google.
 
+# api calls
+## user
+* get list of USERs:
+```
+'/user/'
+```
+* create a new USER
+```
+'/user/'
+```
+* get USER by uid
+```
+'/user/:uid'
+```
+* update/delete USER by uid
+```
+'/user/:uid'
+```
+* get list of all THIS USERs events 
+```
+'/user/:uid/events'
+```
+## events
+* post new comment
+```
+'/event/:event_id/comments'
+```
+* get list of all THIS events comments
+```
+router.get('/event/:event_id/comments'
+```
+## RSO
+* get list of RSOs
+```
+'/rso/'
+```
+* create a new RSO
+```
+'/rso/'
+```
+* get RSO by RSO_id
+```
+'/rso/:RSO_id'
+```
+* update/delete RSO by RSO_id
+```
+'/rso/:RSO_id'
+```
+* get list of all THIS RSOs events 
+```
+'/rso/:RSO_id/events'
+```
+* get list of all THIS RSOs users
+```
+'/rso/:RSO_id/users'
+```
+
 # setup mern app (NodeJS + Express + React + MySQL OR MongoDB)
 ## clone github repo 
 * open linux/macOS terminal and navigate to directory you want to store project

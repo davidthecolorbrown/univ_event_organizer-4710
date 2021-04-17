@@ -6,6 +6,8 @@ const router = express.Router();
 
 // import user database model
 const User = require('../models/users');
+const Event = require('../models/events');
+const Comments = require('../models/comments');
 
 // API endpoint - GET list of all users (or only list of users from query)
 //http://localhost:3001/api/user
@@ -19,6 +21,32 @@ router.get('/user', function(req, res) {
         res.send(users);
     });
 });
+
+// API endpoint - get list of all THIS users events
+//router.get('/users/:uid/events', verifyToken ,function(req, res) {
+router.get('/user/:uid/events', function(req, res) {
+    //res.send(req.params.event_id);
+    console.log("REQ.PARAMS.UID: " + req.params.uid);
+
+    //
+    User.findOne({ uid: req.params.uid }).then(function(user) {
+    //Event.findOne({ event_id: req.params.event_id }).then(function(event) {
+        // check for errors, respond if occurs
+        //if (err) {
+            //res.send(err);
+            //return;
+        //};
+
+        // print name of first budget to console
+        //console.log(event.user_budgets[0].budget_name);
+
+        // respond with array of user_budgets
+        res.send(user.events);
+        console.log(user.events);
+
+    });
+});
+
 
 // API endpoint - GET users within a given date range
 //http://localhost:3001/api/user/date_range?date1=str1&date2=str2
@@ -35,16 +63,27 @@ router.get('/user/date_range', function(req, res) {
     });
 });
 
-// API endpoint - GET a user by _id
-router.get('/user/:id', function(req, res) {
-    console.log("REQ.PARAMS.ID: " + req.params.id);
+// API endpoint - GET a user by uid
+router.get('/user/:uid', function(req, res) {
+    console.log("REQ.PARAMS.uID: " + req.params.uid);
     
     // check if this works by finding User's unique _id and checking for update
-    User.findOne({ _id: req.params.id }).then(function(user) {
+    User.findOne({ uid: req.params.uid }).then(function(user) {
         // send update back to as response
         res.send(user);
     });
 });
+
+// API endpoint - GET a user by pw
+//router.get('/user/:pw', function(req, res) {
+    //console.log("REQ.PARAMS.pw: " + req.params.pw);
+    
+    // check if this works by finding User's unique _id and checking for update
+    //User.findOne({ pw: req.params.pw }).then(function(user) {
+        // send update back to as response
+        //res.send(user);
+    //});
+//});
 
 // API endpoint - post new user
 router.post('/user', function(req, res, next) {
