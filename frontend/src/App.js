@@ -6,6 +6,7 @@ import Create from './Create';
 import EventDetails from './EventDetails';
 import EventView from './EventView';
 import NotFound from './NotFound';
+import Register from './Register';
 
 function App() {
   return (
@@ -16,6 +17,9 @@ function App() {
           <Switch>
             <Route exact path="/">
               <Home />
+            </Route>
+            <Route path="/register">
+              <Register />
             </Route>
             <Route path="/create">
               <Create />
