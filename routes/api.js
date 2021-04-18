@@ -205,16 +205,19 @@ router.get('/user/:uid', function(req, res) {
     });
 });
 
-// API endpoint - GET a user by pw
-//router.get('/user/:pw', function(req, res) {
-    //console.log("REQ.PARAMS.pw: " + req.params.pw);
-    
-    // check if this works by finding User's unique _id and checking for update
+// API endpoint - check if user exists, if so returns user
+router.get('/user/:login/:pw', function(req, res) {
+    console.log("REQ.PARAMS.login: " + req.params.login);
+    console.log("REQ.PARAMS.pw: " + req.params.pw);
+
+    //check if this works by finding User's unique _id and checking for update
     //User.findOne({ pw: req.params.pw }).then(function(user) {
-        // send update back to as response
-        //res.send(user);
-    //});
-//});
+    User.findOne({login: req.params.login, pw: req.params.pw}).then(function(user) {
+        //send update back to as response
+        res.send(user);
+    });
+
+});
 
 // API endpoint - post new user
 router.post('/user', function(req, res, next) {

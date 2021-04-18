@@ -23,6 +23,9 @@ const UserSchema = new Schema({
     login: {
         type: String
     },
+    email: {
+        type: String
+    },
     pw: {
         type: String
     },
