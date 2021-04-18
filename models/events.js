@@ -1,6 +1,7 @@
 //
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const autoIncrement = require('mongoose-auto-increment');
 
 // import comments object/schema so user can see each events comments
 const Comment = require('../models/comments');
@@ -8,10 +9,10 @@ const Comment = require('../models/comments');
 // create schema and model
 // pass in object with different properties and their data types
 const EventSchema = new Schema({
-    event_id: {
-        type: Number,
-        default: 0
-    },
+    //event_id: {
+        //type: Number,
+        //default: 0
+    //},
     time: {
         type: Date,
         default: Date.now
@@ -68,6 +69,7 @@ const EventSchema = new Schema({
 // create new collection modelled after UserSchema
 // used as model anytime a new user is created
 //const Users = mongoose.model('Users', UsersSchema);
+EventSchema.plugin(autoIncrement.plugin, { model: 'Event', field: 'event_id' });
 
 // export so you can use in app
 module.exports = mongoose.model('Event', EventSchema);

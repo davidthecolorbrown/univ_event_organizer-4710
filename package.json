@@ -19,6 +19,7 @@
     "mocha": "^8.2.1",
     "moment": "^2.29.1",
     "mongoose": "^5.12.4",
+    "mongoose-auto-increment": "^5.0.1",
     "node-cron": "^2.0.3",
     "node-fetch": "^2.6.1"
   }
