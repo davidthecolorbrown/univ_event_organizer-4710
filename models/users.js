@@ -49,7 +49,7 @@ const UserSchema = new Schema({
 });
 
 // add autoincrement feature
-EventSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'uid' });
+UserSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'uid' });
 
 // export so you can use in app
 module.exports = mongoose.model('User', UserSchema);

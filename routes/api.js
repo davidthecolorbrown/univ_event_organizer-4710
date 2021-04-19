@@ -200,8 +200,7 @@ router.get('/user/:uid/events', function(req, res) {
 
     });
 });
-
-
+    
 // API endpoint - GET users within a given date range
 //http://localhost:3001/api/user/date_range?date1=str1&date2=str2
 router.get('/user/date_range', function(req, res) {
@@ -335,6 +334,25 @@ router.get('/rso/:rso_id', function(req, res) {
     RSO.findOne({ rso_id: req.params.rso_id }).then(function(rso) {
         // send update back to as response
         res.send(rso);
+    });
+});
+
+// API endpoint - get list of all THIS users RSOs
+router.get('/rso/user/:uid', function(req, res) {
+
+    RSO.find({ uid : req.params.uid }).then(function(rsos) {
+        //console.log(rsos);
+
+        // map user ids from each rso into array
+        var ids = rsos.map(function(rsos) { return rsos.uids; });
+
+        // check if this works by finding rso's unique _id and checking for update
+        //RSO.findOne({ uid : req.params.uid }).then(function(user_rsos) {
+        User.findOne({ uid : {$in: ids} }).then(function(rsos) {
+            // send update back to as response
+            res.send(rsos);
+            console.log(rsos);
+        });
     });
 });
 
