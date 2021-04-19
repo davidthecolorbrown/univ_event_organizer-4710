@@ -3,6 +3,7 @@ import Home from './Home';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import AddComment from './AddComment';
 import Create from './Create';
+import EditComment from './EditComment';
 import EventDetails from './EventDetails';
 import EventView from './EventView';
 import Login from './Login';
@@ -27,6 +28,9 @@ function App() {
             </Route>
             <Route path="/create">
               <Create />
+            </Route>
+            <Route path="/comment/edit/:id">
+              <EditComment/> 
             </Route>
             <Route path="/comment/:id">
               <AddComment/> 
