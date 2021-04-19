@@ -11,6 +11,7 @@ const EventView = () => {
     console.log("id: " + id);
     
     const [privateBlock, setPrivateBlock] = useState(false);
+    const [canEdit, setCanEdit] = useState(false);
 
     // Get the cookies.
     const cookies = new Cookies();
@@ -123,6 +124,11 @@ const EventView = () => {
             ))}
             <Link to={`/comment/${event.event_id}`}>Add a comment</Link>
           </article>
+          )}
+          {(event && canEdit) && (
+            <article>
+              <Link to={`/event/edit/${event._id}`}>Edit</Link>
+            </article>
           )}
       </div>
     );
