@@ -220,14 +220,16 @@ router.get('/user/:login/:pw', function(req, res) {
 });
 
 // API endpoint - check if user login exists, if so returns user
-router.get('/user/registration/:login', function(req, res) {
-    console.log("REQ.PARAMS.login: " + req.params.login);
+router.get('/reg/unique/:login', function(req, res) {
+    //console.log("REQ.PARAMS.login: " + req.params.login);
 
     //check if this works by finding User's unique _id and checking for update
     //User.findOne({ pw: req.params.pw }).then(function(user) {
     User.findOne({login: req.params.login}).then(function(user) {
+        //console.log(user.uid);
         //send update back to as response
         res.send(user);
+        
     });
 
 });
