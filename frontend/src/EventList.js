@@ -1,11 +1,26 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Cookies from 'universal-cookie';
 
 // EventList - a list of events.
 const EventList = ({events, keyword}) => {
   // Establish variables.
   const [input, setInput] = useState('');
   const [eventList, seteventList] = useState(events);
+  const [hidePrivate, setHidePrivate] = useState(true);
+
+  // Get the cookies and see what events should be hidden.
+  const cookies = new Cookies();
+  if(cookies.get('user') !== undefined)
+    setHidePrivate(false);
+  
+  // If private events should be hidden, remove them from the list.
+  // FIXME: Figure out why this isn't working.
+  //if(hidePrivate)
+  //{
+    //events = events.filter(event => {return event.isPrivate === false});
+    //seteventList(events);
+  //}
 
   // Update the search bar input.
   const updateSearch = async (input) => {
@@ -64,7 +79,7 @@ const EventList = ({events, keyword}) => {
       {eventList.map(event => (
         <div className="event-preview" key={event._id} >
           {console.log(event._id)}
-          <Link to={`/note/${event._id}`}>
+          <Link to={`/event/${event._id}`}>
             <h2>{ event.event_name }</h2>
             <p>Date: { toReadableDT(event.date) }</p>
             <p>Location: { event.location }</p>

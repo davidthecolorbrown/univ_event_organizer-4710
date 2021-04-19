@@ -1,5 +1,7 @@
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetch from "./useFetch";
+import Cookies from 'universal-cookie';
 
 // EventView - A viewer for an event.
 const EventView = () => {
@@ -7,9 +9,21 @@ const EventView = () => {
     // Get the event ID.
     const { id } = useParams();
     console.log("id: " + id);
+    
+    const [privateBlock, setPrivateBlock] = useState(false);
+
+    // Get the cookies.
+    const cookies = new Cookies();
   
     // Get event data.
     const { data: event, error, isPending } = useFetch('http://localhost:3002/api/event/' + id);
+
+    // checkPermissions - Make sure the user is allowed to see this event.
+    const checkPermissions = () => {
+      console.log("Checking permissions...");
+      if(event.isPrivate === true && cookies.get('user') === undefined)
+        setPrivateBlock(true);
+    }
 
     // toReadableDate - Get a readable date.
     const toReadableDate = () => {
@@ -75,8 +89,15 @@ const EventView = () => {
       <div className="event-details">
         { isPending && <div>Loading...</div> }
         { error && <div>{ error }</div> }
-        { event && (
+        { privateBlock && (
           <article>
+            <h2>This event is only for university students.</h2>
+            <div>If you are a student, please <Link to="/Login">log in</Link>.</div>
+          </article>
+        )}
+        { (event && !privateBlock) && (
+          <article>
+            {checkPermissions()}
             <h2>{ event.event_name }</h2>
             <h3>{toReadableDate()}</h3>
             <h3>{toReadableTime()}</h3>
