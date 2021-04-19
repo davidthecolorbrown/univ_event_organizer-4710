@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 // Login - A page that allows users to log in.
 const Login = () => {
@@ -7,8 +8,13 @@ const Login = () => {
   const [login, setLogin] = useState();
   const [pw, setPW] = useState();
 
-  // Get the history object.
+  // Get the history object and cookie object.
   const history = useHistory();
+  const cookies = new Cookies();
+
+  // If the user is already logged in, just go home.
+  if(cookies.get('user') !== undefined)
+    history.push('/');
 
   // Add a new user to the database.
   async function handleSubmit(e) {
@@ -19,7 +25,13 @@ const Login = () => {
     {
       var out = await fetch('http://localhost:3002/api/user/' + login + '/' + pw);
       var json = await out.json();
-      console.log(json);
+
+      // Register user cookie.
+      cookies.set('user', json.uid, { path: '/' });
+
+      // Go to the home page.
+      // FIXME: Change to last page they were on.
+      history.push('/');
     }
 
     // If the username/password combo is wrong, out.json will throw a SyntaxError.
@@ -27,14 +39,7 @@ const Login = () => {
     catch(error)
     {
       alert("Username or password is incorrect.");
-      return;
     }
-
-    // Register user cookie here...
-    
-    // Go to the home page.
-    // FIXME: Change to last page they were on.
-    history.push('/');
   }
 
   // Return the page.
