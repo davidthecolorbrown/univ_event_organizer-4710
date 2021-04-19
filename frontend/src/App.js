@@ -7,8 +7,10 @@ import EditComment from './EditComment';
 import EventDetails from './EventDetails';
 import EventView from './EventView';
 import Login from './Login';
+import Logout from './Logout';
 import NotFound from './NotFound';
 import Register from './Register';
+import RSOView from './RSOView';
 
 function App() {
   return (
@@ -26,6 +28,9 @@ function App() {
             <Route path="/login">
               <Login/>
             </Route>
+            <Route path="/logout">
+              <Logout/>
+            </Route>
             <Route path="/create">
               <Create />
             </Route>
@@ -40,6 +45,9 @@ function App() {
             </Route>
             <Route path="/event/:id">
               <EventView/> 
+            </Route>
+            <Route path="/rso/:id">
+              <RSOView/> 
             </Route>
             <Route path="*">
               <NotFound />
