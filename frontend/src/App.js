@@ -31,9 +31,10 @@ function App() {
             <Route path="/comment/:id">
               <AddComment/> 
             </Route>
-            <Route path="/note/:id">
-              {/* Decide which is taken based on user permissions. */}
-              {/* <EventDetails /> */}
+            <Route path="/event/edit/:id">
+              <EventDetails/> 
+            </Route>
+            <Route path="/event/:id">
               <EventView/> 
             </Route>
             <Route path="*">
