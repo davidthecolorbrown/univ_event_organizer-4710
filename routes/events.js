@@ -11,7 +11,7 @@ const Comments = require('../models/comments');
 
 // API endpoint - GET list of all events (or only list of events from query)
 //http://localhost:3001/api/event
-router.get('/event', function(req, res) {
+/*router.get('/event', function(req, res) {
     //console.log(req.query);
     //console.log(req.query.start_date);
     //console.log(req.query.end_date);
@@ -20,7 +20,7 @@ router.get('/event', function(req, res) {
         //console.log(events);
         res.send(events);
     });
-});
+});*/
 
 // API endpoint - GET events within a given date range
 //http://localhost:3001/api/event/date_range?date1=str1&date2=str2

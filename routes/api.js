@@ -23,6 +23,28 @@ const RSO = require('../models/rsos');
     //});
 //});
 
+// API endpoint - GET all events which are public
+router.get('/event', function(req, res) {
+    // console.log("REQ.PARAMS.ID: " + req.params.id);
+    
+    // find and return all events which are public only
+    Event.find({ isPrivate: false, isRSO: false }).then(function(event) {
+        // send update back to as response
+        res.send(event);
+    });
+});
+
+// API endpoint - GET all events that 
+router.get('/event/student', function(req, res) {
+    // console.log("REQ.PARAMS.ID: " + req.params.id);
+    
+    // find and return all events which are public only
+    Event.find({ isRSO: false }).then(function(event) {
+        // send update back to as response
+        res.send(event);
+    });
+});
+
 // API endpoint - GET events within a given date range
 //http://localhost:3001/api/event/date_range?date1=str1&date2=str2
 router.get('/event/date_range', function(req, res) {
@@ -44,17 +66,6 @@ router.get('/event/:id', function(req, res) {
     
     // check if this works by finding User's unique _id and checking for update
     Event.findOne({ _id: req.params.id }).then(function(event) {
-        // send update back to as response
-        res.send(event);
-    });
-});
-
-// API endpoint - GET all events which are public
-router.get('/event', function(req, res) {
-    //console.log("REQ.PARAMS.ID: " + req.params.id);
-    
-    // find and return all events which are public only
-    Event.find({ isPrivate: false }).then(function(event) {
         // send update back to as response
         res.send(event);
     });
