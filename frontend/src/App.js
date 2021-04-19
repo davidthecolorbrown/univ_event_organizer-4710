@@ -5,6 +5,7 @@ import AddComment from './AddComment';
 import Create from './Create';
 import EventDetails from './EventDetails';
 import EventView from './EventView';
+import Login from './Login';
 import NotFound from './NotFound';
 import Register from './Register';
 
@@ -20,6 +21,9 @@ function App() {
             </Route>
             <Route path="/register">
               <Register />
+            </Route>
+            <Route path="/login">
+              <Login/>
             </Route>
             <Route path="/create">
               <Create />
