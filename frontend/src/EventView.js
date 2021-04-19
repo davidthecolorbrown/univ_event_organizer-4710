@@ -119,10 +119,11 @@ const EventView = () => {
                 {/* Print Username of poster */}
                 <p>Posted: { toReadableDate(comment.date) + ", " + toReadableTime(comment.date) }</p>
                 <p>{ comment.body }</p>
+                <p>{(comment.uid == cookies.get('user')) && (<div><Link to={`/comment/edit/${comment._id}`}>Edit</Link></div>)}</p>
               </div>
               </article>
             ))}
-            <Link to={`/comment/${event.event_id}`}>Add a comment</Link>
+            {(cookies.get('user') !== undefined) && (<Link to={`/comment/${event.event_id}`}>Add a comment</Link>)}
           </article>
           )}
           {(event && canEdit) && (
