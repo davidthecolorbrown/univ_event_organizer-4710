@@ -10,6 +10,7 @@ import Login from './Login';
 import Logout from './Logout';
 import NotFound from './NotFound';
 import Register from './Register';
+import RSOCreate from './RSOCreate';
 import RSOView from './RSOView';
 
 function App() {
@@ -45,6 +46,9 @@ function App() {
             </Route>
             <Route path="/event/:id">
               <EventView/> 
+            </Route>
+            <Route path="/rso/create">
+              <RSOCreate/> 
             </Route>
             <Route path="/rso/:id">
               <RSOView/> 
