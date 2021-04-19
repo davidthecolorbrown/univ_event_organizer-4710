@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Cookies from 'universal-cookie';
 
 // Register - A page that allows the registration of users.
 const Register = () => {
@@ -11,19 +12,34 @@ const Register = () => {
   const [pw, setPW] = useState();
   const [pw2, setPW2] = useState();
 
-
-  // Get the history object.
+  // Get the history and cookie object.
   const history = useHistory();
+  const cookies = new Cookies();
 
-  // Add a new user to the database.
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
+
+    // Check that the username is not already in use.
+    try
+    {
+      var out = await fetch('http://localhost:3002/api/reg/unique/' + login);
+      var json = await out.json();
+      console.log(json);
+      
+      // Here, it's guaranteed that the username is in use.
+      alert("The username is already in use.");
+      return;
+    }
+
+    // If the username is in use, out.json will throw a SyntaxError.
+    // This catch just continues.
+    catch(error) { console.log("Username is unique."); }
 
     // Check that the two passwords are the same. If not, throw a message.
     if(pw !== pw2)
     {
-        alert("Passwords do not match!");
-        return;
+      alert("Passwords do not match!");
+      return;
     }
     
     // Build the user object.
@@ -35,9 +51,26 @@ const Register = () => {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user)
     }).then(() => {
+      // Register user cookie.
+      setCookie();
+
       // Go to the home page.
       history.push('/');
     })
+  }
+
+  // setCookie - Get the new user and set the cookie.
+  async function setCookie() {
+    try
+    {
+      var out = await fetch('http://localhost:3002/api/user/' + login + '/' + pw);
+      var json = await out.json();
+
+      // Register user cookie.
+      cookies.set('user', json.uid, { path: '/' });
+    }
+    catch(e)
+    { console.log(e); }
   }
 
   // Return the page.
