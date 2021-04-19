@@ -9,7 +9,7 @@ const User = require('../models/users');
 // create schema and model
 // pass in object with different properties and their data types
 const RSOSchema = new Schema({
-    RSO_id: {
+    rso_id: {
         type: Number,
         default: 0
     },

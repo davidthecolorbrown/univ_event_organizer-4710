@@ -284,12 +284,12 @@ router.get('/rso', function(req, res) {
 });
 
 // API endpoint - get list of all THIS RSOs events
-router.get('/rso/:RSO_id/events', function(req, res) {
+router.get('/rso/:rso_id/events', function(req, res) {
     //res.send(req.params.event_id);
-    console.log("REQ.PARAMS.RSO_ID: " + req.params.RSO_id);
+    console.log("REQ.PARAMS.rso_ID: " + req.params.rso_id);
 
     //
-    RSO.findOne({ RSO_id: req.params.RSO_id }).then(function(rso) {
+    RSO.findOne({ rso_id: req.params.rso_id }).then(function(rso) {
     //Event.findOne({ event_id: req.params.event_id }).then(function(event) {
         // check for errors, respond if occurs
         //if (err) {
@@ -305,11 +305,11 @@ router.get('/rso/:RSO_id/events', function(req, res) {
 });
 
 // API endpoint - GET a rso by RSO_id
-router.get('/rso/:RSO_id', function(req, res) {
-    console.log("REQ.PARAMS.RSO_id: " + req.params.RSO_id);
+router.get('/rso/:rso_id', function(req, res) {
+    console.log("REQ.PARAMS.rso_id: " + req.params.rso_id);
     
     // check if this works by finding rso's unique _id and checking for update
-    RSO.findOne({ RSO_id: req.params.RSO_id }).then(function(rso) {
+    RSO.findOne({ rso_id: req.params.rso_id }).then(function(rso) {
         // send update back to as response
         res.send(rso);
     });
@@ -324,13 +324,13 @@ router.post('/rso', function(req, res, next) {
 });
 
 // API endpoint - update a rso
-router.put('/rso/:RSO_id', function(req, res) {
+router.put('/rso/:rso_id', function(req, res) {
     console.log(req);
     
     // find rso document by id and update with request body
-    RSO.findOneAndUpdate({ RSO_id: req.params.RSO_id }, req.body).then(function() {
+    RSO.findOneAndUpdate({ rso_id: req.params.rso_id }, req.body).then(function() {
         // check if this works by finding rso's unique _id and checking for update
-        RSO.findOne({ RSO_id: req.params.RSO_id }).then(function(rso) {
+        RSO.findOne({ rso_id: req.params.rso_id }).then(function(rso) {
             console.log(rso);
             // send update back to as response
             res.send(rso);
@@ -340,9 +340,9 @@ router.put('/rso/:RSO_id', function(req, res) {
 });
 
 // API endpoint - delete a rso
-router.delete('/rso/:RSO_id', function(req, res) {
+router.delete('/rso/:rso_id', function(req, res) {
     // find rso document by id, delete
-    RSO.findByIdAndRemove({ RSO_id: req.params.RSO_id }, req.body).then(function(rso) {
+    RSO.findByIdAndRemove({ rso_id: req.params.rso_id }, req.body).then(function(rso) {
         // send update back to as response
         res.send(rso);
     });
