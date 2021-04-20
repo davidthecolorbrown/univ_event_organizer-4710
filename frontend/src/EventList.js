@@ -23,7 +23,7 @@ const EventList = ({events, keyword}) => {
     }
     console.log("Getting RSO events...");
     var newEventList = eventList;
-    var memberships = rsos.filter(rso => rso.users.filter(user => user.uid == cookies.get("user")));
+    var memberships = rsos.filter(rso => (rso.users.filter(user => user.uid == cookies.get("user")) == []));
     memberships.forEach(rso =>
     {
       rso.events.forEach(event =>
