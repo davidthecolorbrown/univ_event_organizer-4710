@@ -1,15 +1,15 @@
 //
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const autoIncrement = require('mongoose-auto-increment');
+//const autoIncrement = require('mongoose-auto-increment');
 
 // create schema and model
 // pass in object with different properties and their data types
 const CommentSchema = new Schema({
-    // cid: {
-    //     type: Number,
-    //     default: 0
-    // },
+    cid: {
+        type: Number,
+        default: 0
+    },
     uid: {
         type: Number,
         default: 0
@@ -41,7 +41,7 @@ const CommentSchema = new Schema({
 });
 
 // add autoincrement feature
-CommentSchema.plugin(autoIncrement.plugin, { model: 'Comment', field: 'cid' });
+//CommentSchema.plugin(autoIncrement.plugin, { model: 'Comment', field: 'cid' });
 
 // export so you can use in app
 module.exports = mongoose.model('Comment', CommentSchema);

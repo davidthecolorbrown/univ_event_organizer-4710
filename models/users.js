@@ -11,7 +11,7 @@ const Event = require('../models/events');
 const UserSchema = new Schema({
     // uid: {
     //     type: Number,
-    //     default: 1
+    //     default: 0
     // },
     firstname: {
         type: String,
