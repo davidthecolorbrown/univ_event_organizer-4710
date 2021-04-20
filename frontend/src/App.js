@@ -10,6 +10,7 @@ import Login from './Login';
 import Logout from './Logout';
 import NotFound from './NotFound';
 import Register from './Register';
+import RSOList from './RSOList';
 import RSOCreate from './RSOCreate';
 import RSOView from './RSOView';
 
@@ -49,6 +50,9 @@ function App() {
             </Route>
             <Route path="/rso/create">
               <RSOCreate/> 
+            </Route>
+            <Route path="/rso">
+              <RSOList/>
             </Route>
             <Route path="/rso/:id">
               <RSOView/> 

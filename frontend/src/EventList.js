@@ -37,17 +37,6 @@ const EventList = ({events, keyword}) => {
     setRsoUpdated(true);
   }
 
-  // Update the search bar input.
-  const updateSearch = async (input) => {
-    // Get the list, filtered by type.
-    const filteredByType = events.filter(event => {
-      return event.type.toLowerCase().includes(input.toLowerCase())})
-    
-    // Set the event list to contain the filtered elements.
-    setInput(input);
-    seteventList(filteredByType);
-  }
-
   // toReadableDT - Convert the MongoDB date string to something more readable.
   const toReadableDT = (mongoDate) => {
     // Months in English abbreviations.
@@ -78,9 +67,6 @@ const EventList = ({events, keyword}) => {
       return timeStr + " PM";
   }
 
-  // set the css styling for search bar
-  const BarStyling = {width:"20rem",background:"#F2F1F9", border:"none", padding:"0.5rem"};
-  
   // Create the event list.
   return (
     <div className="event-list">
@@ -91,13 +77,6 @@ const EventList = ({events, keyword}) => {
         Still loading...
         </div>}
       { (rsos && rsoUpdated) && (<div>
-          <input 
-              style={BarStyling}
-              key="random1"
-              value={input}
-              placeholder={"search notes by type"}
-              onChange={(e) => updateSearch(e.target.value)}
-          />
           {eventList.map(event => (
             <div className="event-preview" key={event._id} >
               {console.log(event._id)}
