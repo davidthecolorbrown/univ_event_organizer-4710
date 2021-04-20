@@ -155,7 +155,7 @@ const RSOCreate = () => {
           value={name}
           onChange={(e) => setName(e.target.value)}
         /><br/>
-        <label>Last Name:</label><br/>
+        <label>Description:</label><br/>
         <textarea
           required
           value={description}

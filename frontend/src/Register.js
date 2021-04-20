@@ -57,10 +57,6 @@ const Register = () => {
     }).then(() => {
       // Register user cookie.
       setCookie();
-
-      // Refresh ad go to the home page.
-      window.location.reload();
-      history.push('/');
     })
   }
 
@@ -73,6 +69,10 @@ const Register = () => {
 
       // Register user cookie.
       cookies.set('user', json.uid, { path: '/' });
+
+      // Refresh and go to the home page.
+      window.location.reload();
+      history.push('/');
     }
     catch(e)
     { console.log(e); }
