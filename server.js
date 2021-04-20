@@ -14,7 +14,8 @@ const app = express();
 const PORT = 3002;
 //const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/univ_events?retryWrites=true&w=majority";
 //const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/suits?retryWrites=true&w=majority";
-const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/new_univ_events?retryWrites=true&w=majority";
+//const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/new_univ_events?retryWrites=true&w=majority";
+const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/uni_events?retryWrites=true&w=majority";
 
 //
 var connection = mongoose.createConnection(MONGODB_URI);
