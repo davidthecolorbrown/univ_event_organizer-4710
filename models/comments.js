@@ -41,7 +41,7 @@ const CommentSchema = new Schema({
 });
 
 // add autoincrement feature
-UserSchema.plugin(autoIncrement.plugin, { model: 'Comment', field: 'cid' });
+CommentSchema.plugin(autoIncrement.plugin, { model: 'Comment', field: 'cid' });
 
 // export so you can use in app
 module.exports = mongoose.model('Comment', CommentSchema);

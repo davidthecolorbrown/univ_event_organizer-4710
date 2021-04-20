@@ -41,7 +41,7 @@ const RSOSchema = new Schema({
 });
 
 // add autoincrement feature
-UserSchema.plugin(autoIncrement.plugin, { model: 'RSO', field: 'rso_id' });
+RSOSchema.plugin(autoIncrement.plugin, { model: 'RSO', field: 'rso_id' });
 
 // export so you can use in app
 module.exports = mongoose.model('RSO', RSOSchema);
