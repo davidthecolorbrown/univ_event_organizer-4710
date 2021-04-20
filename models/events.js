@@ -55,7 +55,7 @@ const EventSchema = new Schema({
     },
     comments: {
         type: [Comment.schema],
-        default: [{}]
+        //default: [{}]
     },
     date: {
         type: Date,
