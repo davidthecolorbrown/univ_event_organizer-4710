@@ -33,6 +33,7 @@ const Navbar = () => {
             backgroundColor: '#000000',
             borderRadius: '8px' 
           }}>New Event</Link>
+          <Link to="/Logout">Log out</Link>
         </div>}
     </nav>
   );

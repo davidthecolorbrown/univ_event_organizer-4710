@@ -16,6 +16,10 @@ const Register = () => {
   const history = useHistory();
   const cookies = new Cookies();
 
+  // If the user is already logged in, just go home.
+  if(cookies.get('user') !== undefined)
+    history.push('/');
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -54,7 +58,8 @@ const Register = () => {
       // Register user cookie.
       setCookie();
 
-      // Go to the home page.
+      // Refresh ad go to the home page.
+      window.location.reload();
       history.push('/');
     })
   }

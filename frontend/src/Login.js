@@ -29,8 +29,9 @@ const Login = () => {
       // Register user cookie.
       cookies.set('user', json.uid, { path: '/' });
 
-      // Go to the home page.
+      // Refresh and go to the home page.
       // FIXME: Change to last page they were on.
+      window.location.reload();
       history.push('/');
     }
 

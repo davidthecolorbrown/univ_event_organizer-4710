@@ -7,8 +7,9 @@ const Logout = () => {
   const history = useHistory();
   const cookies = new Cookies();
 
-  // Delete the cookie and go home.
+  // Delete the cookie, refresh, and go home.
   cookies.remove('user');
+  window.location.reload();
   history.push('/');
 
   // Return the page.
