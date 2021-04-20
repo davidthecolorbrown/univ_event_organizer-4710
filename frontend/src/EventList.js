@@ -12,27 +12,39 @@ const EventList = ({events, keyword}) => {
 
   // RSO list and cookies.
   const { error, isPending, data: rsos } = useFetch("http://localhost:3002/api/rso");
+  const { error: error2, isPending: isPending2, data: rsoEvents } = useFetch("http://localhost:3002/api/event/rso");
   const cookies = new Cookies();
 
   // getRSOEvents - Get RSO-only events associated with RSOs the user's in.
   const getRSOEvents = () => {
+
+    // If this is a guest user, just leave.
     if(cookies.get("user") == undefined)
     {
       setRsoUpdated(true);
       return;
     }
+
+    // Get the RSOs the user is a member of.
     console.log("Getting RSO events...");
     var newEventList = eventList;
-    var memberships = rsos.filter(rso => (rso.users.filter(user => user.uid == cookies.get("user")) == []));
+    var memberships = rsos.filter(rso => (rso.users.filter(user => user.uid == cookies.get("user")).length !== 0));
+
+    // In each RSO, find RSO-only events and add them to the list.
     memberships.forEach(rso =>
     {
       rso.events.forEach(event =>
       {
-        console.log(event)
+        // Events must be retrieved from rsoEvents to ensure the _id is valid.
+        // If the event was deleted from the main event array, eventObj will just be [].
         if(event.isRSO)
-          newEventList.push(event);
+        {
+          const eventObj = rsoEvents.filter(rsoEvent => (event.event_name === rsoEvent.event_name && event.created_at === rsoEvent.created_at));
+          newEventList = newEventList.concat(eventObj);
+        }
       })
     });
+    events = newEventList;
     seteventList(newEventList);
     setRsoUpdated(true);
   }
@@ -41,7 +53,7 @@ const EventList = ({events, keyword}) => {
   const updateSearch = async (input) => {
     // Get the list, filtered by type.
     const filteredByType = events.filter(event => {
-      return event.type.toLowerCase().includes(input.toLowerCase())})
+      return event.event_name.toLowerCase().includes(input.toLowerCase())})
     
     // Set the event list to contain the filtered elements.
     setInput(input);
@@ -85,12 +97,13 @@ const EventList = ({events, keyword}) => {
   return (
     <div className="event-list">
       { error && <div>{ error }</div> }
-      { isPending && <div>Loading...</div> }
-      { (rsos && !rsoUpdated) && <div>
+      { error2 && <div>{ error2 }</div>}
+      { (isPending || isPending2) && <div>Loading...</div> }
+      { (rsos && rsoEvents && !rsoUpdated) && <div>
         {getRSOEvents()}
         Still loading...
         </div>}
-      { (rsos && rsoUpdated) && (<div>
+      { (rsos && rsoEvents && rsoUpdated) && (<div>
           <input 
               style={BarStyling}
               key="random1"

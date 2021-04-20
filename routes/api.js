@@ -34,12 +34,23 @@ router.get('/event', function(req, res) {
     });
 });
 
-// API endpoint - GET all events that 
+// API endpoint - GET all events that are visible to students
 router.get('/event/student', function(req, res) {
     // console.log("REQ.PARAMS.ID: " + req.params.id);
     
     // find and return all events which are public only
     Event.find({ isRSO: false }).then(function(event) {
+        // send update back to as response
+        res.send(event);
+    });
+});
+
+// API endpoint - GET all events that are RSO-exclusive
+router.get('/event/rso', function(req, res) {
+    // console.log("REQ.PARAMS.ID: " + req.params.id);
+    
+    // find and return all events which are public only
+    Event.find({ isRSO: true }).then(function(event) {
         // send update back to as response
         res.send(event);
     });

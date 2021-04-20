@@ -78,10 +78,7 @@ const Create = () => {
     // Get the RSO object if applicable and see if the user can add something to it.
     if(RSO != -1)
     {
-      console.log("ID:" + RSO);
       var rsoObj = rsos.filter(rso => rso.rso_id == RSO)[0];
-      console.log(rsoObj);
-      console.log("Admin:" + rsoObj.admin);
       if(cookies.get('user') != rsoObj.admin)
       {
         alert("You don't have permission to add events for this RSO.");
@@ -146,7 +143,6 @@ const Create = () => {
     items.push(<option value="-1">None</option>);
     rsos.forEach(this_rso => {
       items.push(<option value={this_rso.rso_id}>{this_rso.name}</option>);
-      console.log(this_rso.rso_id + " " + this_rso.name);
     });    
     return items;
   } 
