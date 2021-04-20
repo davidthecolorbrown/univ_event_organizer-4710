@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import useFetch from "./useFetch";
 import Cookies from 'universal-cookie';
 
 // EventList - a list of events.
@@ -7,20 +8,34 @@ const EventList = ({events, keyword}) => {
   // Establish variables.
   const [input, setInput] = useState('');
   const [eventList, seteventList] = useState(events);
-  const [hidePrivate, setHidePrivate] = useState(true);
+  const [rsoUpdated, setRsoUpdated] = useState(false);
 
-  // Get the cookies and see what events should be hidden.
+  // RSO list and cookies.
+  const { error, isPending, data: rsos } = useFetch("http://localhost:3002/api/rso");
   const cookies = new Cookies();
-  if(cookies.get('user') !== undefined)
-    setHidePrivate(false);
-  
-  // If private events should be hidden, remove them from the list.
-  // FIXME: Figure out why this isn't working.
-  //if(hidePrivate)
-  //{
-    //events = events.filter(event => {return event.isPrivate === false});
-    //seteventList(events);
-  //}
+
+  // getRSOEvents - Get RSO-only events associated with RSOs the user's in.
+  const getRSOEvents = () => {
+    if(cookies.get("user") == undefined)
+    {
+      setRsoUpdated(true);
+      return;
+    }
+    console.log("Getting RSO events...");
+    var newEventList = eventList;
+    var memberships = rsos.filter(rso => rso.users.filter(user => user.uid == cookies.get("user")));
+    memberships.forEach(rso =>
+    {
+      rso.events.forEach(event =>
+      {
+        console.log(event)
+        if(event.isRSO)
+          newEventList.push(event);
+      })
+    });
+    seteventList(newEventList);
+    setRsoUpdated(true);
+  }
 
   // Update the search bar input.
   const updateSearch = async (input) => {
@@ -69,27 +84,32 @@ const EventList = ({events, keyword}) => {
   // Create the event list.
   return (
     <div className="event-list">
-      <input 
-          style={BarStyling}
-          key="random1"
-          value={input}
-          placeholder={"search notes by type"}
-          onChange={(e) => updateSearch(e.target.value)}
-      />
-      {eventList.map(event => (
-        <div className="event-preview" key={event._id} >
-          {console.log(event._id)}
-          <Link to={`/event/${event._id}`}>
-            <h2>{ event.event_name }</h2>
-            <p>Date: { toReadableDT(event.date) }</p>
-            <p>Location: { event.location }</p>
-            {/*<p>Type: { event.type }</p>
-            <p>Description: { event.description }</p>
-            <p>RSO: { event.isRSO }</p>
-            <p>Event ID: { event.event_id }</p>*/}
-          </Link>
+      { error && <div>{ error }</div> }
+      { isPending && <div>Loading...</div> }
+      { (rsos && !rsoUpdated) && <div>
+        {getRSOEvents()}
+        Still loading...
+        </div>}
+      { (rsos && rsoUpdated) && (<div>
+          <input 
+              style={BarStyling}
+              key="random1"
+              value={input}
+              placeholder={"search notes by type"}
+              onChange={(e) => updateSearch(e.target.value)}
+          />
+          {eventList.map(event => (
+            <div className="event-preview" key={event._id} >
+              {console.log(event._id)}
+              <Link to={`/event/${event._id}`}>
+                <h2>{ event.event_name }</h2>
+                <p>Date: { toReadableDT(event.date) }</p>
+                <p>Location: { event.location }</p>
+              </Link>
+            </div>
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
 }
