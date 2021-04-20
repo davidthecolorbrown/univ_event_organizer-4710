@@ -18,6 +18,7 @@ const Navbar = () => {
       {userCookie === undefined &&
         <div className="links">
           <Link to="/">Home</Link>
+          <Link to="/rso">RSOs</Link>
           <Link to="/Register">Register</Link>
           <Link to="/Login" style={{ 
             color: 'white', 
@@ -28,6 +29,7 @@ const Navbar = () => {
       {userCookie !== undefined &&
         <div className="links">
           <Link to="/">Home</Link>
+          <Link to="/rso">RSOs</Link>
           <Link to="/create" style={{ 
             color: 'white', 
             backgroundColor: '#000000',

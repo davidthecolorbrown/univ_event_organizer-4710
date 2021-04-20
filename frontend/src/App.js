@@ -11,6 +11,7 @@ import Logout from './Logout';
 import NotFound from './NotFound';
 import Register from './Register';
 import RSOCreate from './RSOCreate';
+import RSOList from './RSOList';
 import RSOView from './RSOView';
 
 function App() {
@@ -52,6 +53,9 @@ function App() {
             </Route>
             <Route path="/rso/:id">
               <RSOView/> 
+            </Route>
+            <Route path="/rso">
+              <RSOList/>
             </Route>
             <Route path="*">
               <NotFound />

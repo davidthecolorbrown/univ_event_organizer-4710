@@ -52,12 +52,12 @@ const EventList = ({events, keyword}) => {
   // Update the search bar input.
   const updateSearch = async (input) => {
     // Get the list, filtered by type.
-    const filteredByType = events.filter(event => {
+    const filteredByName = events.filter(event => {
       return event.event_name.toLowerCase().includes(input.toLowerCase())})
     
     // Set the event list to contain the filtered elements.
     setInput(input);
-    seteventList(filteredByType);
+    seteventList(filteredByName);
   }
 
   // toReadableDT - Convert the MongoDB date string to something more readable.
