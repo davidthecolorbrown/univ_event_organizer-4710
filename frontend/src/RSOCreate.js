@@ -139,7 +139,7 @@ const RSOCreate = () => {
       body: JSON.stringify(rso)
     }).then(() => {
       // Go to the home page.
-      //history.push('/');
+      history.push('/');
     })
   }
 
