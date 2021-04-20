@@ -1,6 +1,7 @@
 //
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const autoIncrement = require('mongoose-auto-increment');
 
 // import events/user object/schema so RSO has a list of events, users
 const Event = require('../models/events');
@@ -9,10 +10,10 @@ const User = require('../models/users');
 // create schema and model
 // pass in object with different properties and their data types
 const RSOSchema = new Schema({
-    rso_id: {
-        type: Number,
-        default: 0
-    },
+    // rso_id: {
+    //     type: Number,
+    //     default: 0
+    // },
     name: {
         type: String,
         default: "No RSO name"
@@ -38,9 +39,9 @@ const RSOSchema = new Schema({
         default: Date.now
     }
 });
-// create new collection modelled after UserSchema
-// used as model anytime a new user is created
-//const Users = mongoose.model('Users', UsersSchema);
+
+// add autoincrement feature
+UserSchema.plugin(autoIncrement.plugin, { model: 'RSO', field: 'rso_id' });
 
 // export so you can use in app
 module.exports = mongoose.model('RSO', RSOSchema);
