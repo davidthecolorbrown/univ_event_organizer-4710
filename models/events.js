@@ -15,43 +15,43 @@ const EventSchema = new Schema({
     //},
     time: {
         type: Date,
-        default: Date.now
+        //default: Date.now
     },
     location: {
         type: String,
-        default: "NaN"
+        //default: "NaN"
     },
     event_name: {
         type: String,
-        default: "No name for event."
+        //default: "No name for event."
     },
     description: {
         type: String,
-        default: "No event description."
+        //default: "No event description."
     },
     isRSO: {
         type: Boolean,
-        default: false
+        //default: false
     },
     isPrivate: {
         type: Boolean,
-        default: false
+        //default: false
     },
     RSO_id: {
         type: Number,
-        default: 0
+        //default: 0
     },
     title: {
         type: String,
-        default: "No event title (same as event_name)"
+        //default: "No event title (same as event_name)"
     },
     description: {
         type: String,
-        default: "No event description (same as description)"
+        //default: "No event description (same as description)"
     },
     admin_id: {
         type: Number,
-        default: 0
+        //default: 0
     },
     comments: {
         type: [Comment.schema],
@@ -59,7 +59,7 @@ const EventSchema = new Schema({
     },
     date: {
         type: Date,
-        default: Date.now
+        //default: Date.now
     },
     created_at: {
         type: Date,

@@ -12,19 +12,19 @@ const User = require('../models/users');
 const RSOSchema = new Schema({
     rso_id: {
         type: Number,
-        default: 0
+        //default: 0
     },
     name: {
         type: String,
-        default: "No RSO name"
+        //default: "No RSO name"
     },
     description: {
         type: String,
-        default: "No RSO description"
+        //default: "No RSO description"
     },
     admin: {
         type: Number,
-        default: 0
+        //default: 0
     },
     users: {
         type: [User.schema],
@@ -36,7 +36,7 @@ const RSOSchema = new Schema({
     },
     created_at: {
         type: Date,
-        default: Date.now
+        //default: Date.now
     }
 });
 

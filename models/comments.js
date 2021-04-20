@@ -7,36 +7,36 @@ const Schema = mongoose.Schema;
 // pass in object with different properties and their data types
 const CommentSchema = new Schema({
     cid: {
-        type: Number,
-        default: 0
+        type: Number
+        //default: 0
     },
     uid: {
-        type: Number,
-        default: 0
+        type: Number
+        //default: 0
     },
     event_id: {
-        type: Number,
-        default: 0
+        type: Number
+        //default: 0
     },
     title: {
-        type: String,
-        default: "No Comment Title"
+        type: String
+        //default: "No Comment Title"
     },
     body: {
-        type: String,
-        default: "No Comment Body"
+        type: String
+        //default: "No Comment Body"
     },
     isAdmin: {
-        type: Boolean,
-        default: false
+        type: Boolean
+        //default: false
     },
     rating: {
-        type: Number,
-        default: 5
+        type: Number
+        //default: 5
     },
     created_at: {
-        type: Date,
-        default: Date.now
+        type: Date
+        //default: Date.now
     }
 });
 

@@ -15,11 +15,11 @@ const UserSchema = new Schema({
     },
     firstname: {
         type: String,
-        default: "NaN"
+        //default: "NaN"
     },
     lastname: {
         type: String,
-        default: "NaN"
+        //default: "NaN"
     },
     login: {
         type: String
@@ -32,11 +32,11 @@ const UserSchema = new Schema({
     },
     isSuper: {
         type: Boolean,
-        default: false
+        //default: false
     },
     isAdmin: {
         type: Boolean,
-        default: false
+        //default: false
     },
     events: {
         type: [Event.schema],
@@ -44,7 +44,7 @@ const UserSchema = new Schema({
     },
     created_at: {
         type: Date,
-        default: Date.now
+        //default: Date.now
     }
 });
 
