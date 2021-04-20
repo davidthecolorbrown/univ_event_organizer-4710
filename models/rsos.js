@@ -28,11 +28,11 @@ const RSOSchema = new Schema({
     },
     users: {
         type: [User.schema],
-        //default: [{}]
+        default: [{}]
     },
     events: {
         type: [Event.schema],
-        //default: [{}]
+        default: [{}]
     },
     created_at: {
         type: Date,

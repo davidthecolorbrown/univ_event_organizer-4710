@@ -12,7 +12,9 @@ const app = express();
 
 // set port and mongoDB url (local or global)
 const PORT = 3002;
-const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/univ_events?retryWrites=true&w=majority";
+//const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/univ_events?retryWrites=true&w=majority";
+//const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/suits?retryWrites=true&w=majority";
+const MONGODB_URI = "mongodb+srv://admin:admin@cluster0.7yj86.mongodb.net/new_univ_events?retryWrites=true&w=majority";
 
 //
 var connection = mongoose.createConnection(MONGODB_URI);

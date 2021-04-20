@@ -9,10 +9,10 @@ const Comment = require('../models/comments');
 // create schema and model
 // pass in object with different properties and their data types
 const EventSchema = new Schema({
-    //event_id: {
-        //type: Number,
-        //default: 0
-    //},
+    event_id: {
+        type: Number,
+        default: 0
+    },
     time: {
         type: Date,
         //default: Date.now
@@ -55,7 +55,7 @@ const EventSchema = new Schema({
     },
     comments: {
         type: [Comment.schema],
-        //default: [{}]
+        default: [{}]
     },
     date: {
         type: Date,

@@ -40,7 +40,7 @@ const UserSchema = new Schema({
     },
     events: {
         type: [Event.schema],
-        //default: [{}]
+        default: [{}]
     },
     created_at: {
         type: Date,
