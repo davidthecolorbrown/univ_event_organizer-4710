@@ -1,7 +1,7 @@
 //
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-//const autoIncrement = require('mongoose-auto-increment');
+const autoIncrement = require('mongoose-auto-increment');
 
 // import events object/schema so user can see each events comments
 const Event = require('../models/events');
@@ -49,7 +49,7 @@ const UserSchema = new Schema({
 });
 
 // add autoincrement feature
-//UserSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'uid' });
+UserSchema.plugin(autoIncrement.plugin, { model: 'User', field: 'uid' });
 
 // export so you can use in app
 module.exports = mongoose.model('User', UserSchema);
